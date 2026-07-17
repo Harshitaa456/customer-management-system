@@ -86,38 +86,64 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-semibold text-[#0F172A] mb-4">
-              Trusted by innovative companies
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="text-2xl font-bold text-gray-400">
-                Company {i}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-primary to-secondary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Transform Your Customer Management?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Join thousands of businesses already using Aventra to grow their customer relationships.
-          </p>
-          <Link to="/signup">
-            <Button variant="secondary" className="text-lg px-8 py-3">
-              Start Your Free Trial
-            </Button>
-          </Link>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Ready to Transform Your Customer Management?
+            </h2>
+            <p className="text-xl text-white/90 mb-8">
+              Join thousands of businesses already using Aventra to grow their customer relationships.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+              <p className="text-4xl font-bold text-white mb-2">10K+</p>
+              <p className="text-white/80">Active Users</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+              <p className="text-4xl font-bold text-white mb-2">99.9%</p>
+              <p className="text-white/80">Uptime</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+              <p className="text-4xl font-bold text-white mb-2">24/7</p>
+              <p className="text-white/80">Support</p>
+            </div>
+          </div>
+
+          {/* Benefits */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="flex items-center gap-3 text-white">
+              <CheckCircle className="w-6 h-6" />
+              <span>No credit card required</span>
+            </div>
+            <div className="flex items-center gap-3 text-white">
+              <CheckCircle className="w-6 h-6" />
+              <span>14-day free trial</span>
+            </div>
+            <div className="flex items-center gap-3 text-white">
+              <CheckCircle className="w-6 h-6" />
+              <span>Cancel anytime</span>
+            </div>
+            <div className="flex items-center gap-3 text-white">
+              <CheckCircle className="w-6 h-6" />
+              <span>24/7 customer support</span>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link to="/signup">
+              <Button variant="secondary" className="text-lg px-8 py-3">
+                Start Your Free Trial <ArrowRight className="inline ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+            <p className="text-white/70 text-sm mt-4">
+              No setup fees • No hidden charges • Start in minutes
+            </p>
+          </div>
         </div>
       </section>
 

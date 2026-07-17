@@ -24,8 +24,8 @@ const Navbar = ({ isAuthenticated = false }) => {
             <Link to="/features" className="text-gray-600 hover:text-primary transition-colors">
               Features
             </Link>
-            <Link to="/pricing" className="text-gray-600 hover:text-primary transition-colors">
-              Pricing
+            <Link to="/reviews" className="text-gray-600 hover:text-primary transition-colors">
+              Reviews
             </Link>
             <Link to="/about" className="text-gray-600 hover:text-primary transition-colors">
               About
@@ -66,8 +66,8 @@ const Navbar = ({ isAuthenticated = false }) => {
               <Link to="/features" className="text-gray-600 hover:text-primary transition-colors">
                 Features
               </Link>
-              <Link to="/pricing" className="text-gray-600 hover:text-primary transition-colors">
-                Pricing
+              <Link to="/reviews" className="text-gray-600 hover:text-primary transition-colors">
+                Reviews
               </Link>
               <Link to="/about" className="text-gray-600 hover:text-primary transition-colors">
                 About
