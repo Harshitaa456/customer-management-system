@@ -1,0 +1,156 @@
+import React, { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Menu, ArrowLeft } from 'lucide-react';
+import Sidebar from '../components/Sidebar';
+import Button from '../components/Button';
+import Input from '../components/Input';
+
+const EditCustomerPage = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  // Dummy customer data
+  const dummyCustomer = {
+    id: 1,
+    fullName: 'Sarah Johnson',
+    email: 'sarah@techcorp.com',
+    phone: '+1 234 567 8901',
+    company: 'TechCorp',
+    address: '123 Innovation Drive, San Francisco, CA 94102',
+    notes: 'Key decision maker. Prefers email communication.',
+    status: 'Active'
+  };
+
+  const [formData, setFormData] = useState(dummyCustomer);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // UI only - no actual update
+    console.log('Updated customer data:', formData);
+    navigate('/customers');
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex">
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      
+      <div className="flex-1 flex flex-col">
+        {/* Top Navbar */}
+        <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+          <div className="flex items-center justify-between px-6 py-4">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+              <Link to="/customers" className="p-2 hover:bg-gray-100 rounded-lg">
+                <ArrowLeft className="w-6 h-6" />
+              </Link>
+              <h1 className="text-2xl font-bold text-[#0F172A]">Edit Customer</h1>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                JD
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="flex-1 p-6">
+          <div className="max-w-2xl mx-auto">
+            <div className="card p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <Input
+                  label="Full Name"
+                  type="text"
+                  placeholder="John Doe"
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                  required
+                />
+
+                <Input
+                  label="Email"
+                  type="email"
+                  placeholder="john@company.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  required
+                />
+
+                <Input
+                  label="Phone Number"
+                  type="tel"
+                  placeholder="+1 234 567 8900"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                />
+
+                <Input
+                  label="Company Name"
+                  type="text"
+                  placeholder="Acme Inc"
+                  value={formData.company}
+                  onChange={(e) => setFormData({...formData, company: e.target.value})}
+                />
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-[#0F172A]">Address</label>
+                  <textarea
+                    placeholder="123 Main St, City, Country"
+                    value={formData.address}
+                    onChange={(e) => setFormData({...formData, address: e.target.value})}
+                    rows={3}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-[#0F172A]">Notes</label>
+                  <textarea
+                    placeholder="Additional notes about the customer..."
+                    value={formData.notes}
+                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                    rows={4}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium text-[#0F172A]">Customer Status</label>
+                  <select
+                    value={formData.status}
+                    onChange={(e) => setFormData({...formData, status: e.target.value})}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+
+                <div className="flex items-center gap-4 pt-4">
+                  <Button type="submit" variant="primary">
+                    Update Customer
+                  </Button>
+                  <Link to="/customers">
+                    <Button type="button" variant="secondary">
+                      Cancel
+                    </Button>
+                  </Link>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default EditCustomerPage;
