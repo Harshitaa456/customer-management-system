@@ -70,10 +70,6 @@ const DashboardPage = () => {
             </div>
             
             <div className="flex items-center gap-4">
-              <button className="p-2 hover:bg-gray-100 rounded-lg relative">
-                <Bell className="w-6 h-6 text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
               <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
                 <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
                   JD
@@ -107,28 +103,6 @@ const DashboardPage = () => {
             {stats.map((stat, index) => (
               <DashboardCard key={index} {...stat} />
             ))}
-          </div>
-
-          {/* Customer Health / Analytics */}
-          <div className="card p-6 mb-8">
-            <h2 className="text-lg font-semibold text-[#0F172A] mb-4">Customer Health Overview</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-green-50 rounded-lg p-4">
-                <p className="text-green-700 font-medium">Healthy</p>
-                <p className="text-3xl font-bold text-green-800 mt-2">1,923</p>
-                <p className="text-sm text-green-600 mt-1">67.5% of customers</p>
-              </div>
-              <div className="bg-yellow-50 rounded-lg p-4">
-                <p className="text-yellow-700 font-medium">At Risk</p>
-                <p className="text-3xl font-bold text-yellow-800 mt-2">582</p>
-                <p className="text-sm text-yellow-600 mt-1">20.4% of customers</p>
-              </div>
-              <div className="bg-red-50 rounded-lg p-4">
-                <p className="text-red-700 font-medium">Churned</p>
-                <p className="text-3xl font-bold text-red-800 mt-2">342</p>
-                <p className="text-sm text-red-600 mt-1">12.1% of customers</p>
-              </div>
-            </div>
           </div>
 
           {/* Recent Customers Table */}
