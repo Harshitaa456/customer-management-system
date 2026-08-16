@@ -4,33 +4,47 @@ import { Menu, ArrowLeft } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { createCustomer } from '../api/customers';
 
 const AddCustomerPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
     company: '',
-    address: '',
-    notes: '',
-    status: 'Active'
+    status: 'Active',
   });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // UI only - no actual save
-    console.log('Customer data:', formData);
-    navigate('/customers');
+    setSaving(true);
+    setError('');
+
+    try {
+      await createCustomer({
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone || null,
+        company: formData.company || null,
+        status: formData.status,
+      });
+      navigate('/customers');
+    } catch (err) {
+      setError(err.message || 'Could not create customer');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background flex">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
+
       <div className="flex-1 flex flex-col">
-        {/* Top Navbar */}
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
           <div className="flex items-center justify-between px-6 py-4">
             <div className="flex items-center gap-4">
@@ -45,7 +59,7 @@ const AddCustomerPage = () => {
               </Link>
               <h1 className="text-2xl font-bold text-[#0F172A]">Add New Customer</h1>
             </div>
-            
+
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
                 JD
@@ -54,17 +68,18 @@ const AddCustomerPage = () => {
           </div>
         </header>
 
-        {/* Main Content */}
         <main className="flex-1 p-6">
           <div className="max-w-2xl mx-auto">
             <div className="card p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && <p className="text-red-600 text-sm">{error}</p>}
+
                 <Input
                   label="Full Name"
                   type="text"
                   placeholder="John Doe"
                   value={formData.fullName}
-                  onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   required
                 />
 
@@ -73,7 +88,7 @@ const AddCustomerPage = () => {
                   type="email"
                   placeholder="john@company.com"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                 />
 
@@ -82,7 +97,7 @@ const AddCustomerPage = () => {
                   type="tel"
                   placeholder="+1 234 567 8900"
                   value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 />
 
                 <Input
@@ -90,36 +105,14 @@ const AddCustomerPage = () => {
                   type="text"
                   placeholder="Acme Inc"
                   value={formData.company}
-                  onChange={(e) => setFormData({...formData, company: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                 />
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-[#0F172A]">Address</label>
-                  <textarea
-                    placeholder="123 Main St, City, Country"
-                    value={formData.address}
-                    onChange={(e) => setFormData({...formData, address: e.target.value})}
-                    rows={3}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-[#0F172A]">Notes</label>
-                  <textarea
-                    placeholder="Additional notes about the customer..."
-                    value={formData.notes}
-                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
-                    rows={4}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
-                  />
-                </div>
 
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-medium text-[#0F172A]">Customer Status</label>
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData({...formData, status: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
                   >
                     <option value="Active">Active</option>
@@ -129,8 +122,8 @@ const AddCustomerPage = () => {
                 </div>
 
                 <div className="flex items-center gap-4 pt-4">
-                  <Button type="submit" variant="primary">
-                    Save Customer
+                  <Button type="submit" variant="primary" disabled={saving}>
+                    {saving ? 'Saving...' : 'Save Customer'}
                   </Button>
                   <Link to="/customers">
                     <Button type="button" variant="secondary">

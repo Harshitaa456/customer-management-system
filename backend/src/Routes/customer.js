@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
         email,
         phone: phone || null,
         company: company || null,
-        status: status || "Lead",
+        status: status || "Active",
       },
     });
 

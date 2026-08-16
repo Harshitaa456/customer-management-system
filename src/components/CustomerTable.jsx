@@ -20,14 +20,17 @@ const CustomerTable = ({ customers, onEdit, onDelete, onView }) => {
               <td className="py-3 px-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-                    {customer.name.split(' ').map(n => n[0]).join('')}
+                    {(customer.name || '?')
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
                   </div>
                   <span className="font-medium text-[#0F172A]">{customer.name}</span>
                 </div>
               </td>
               <td className="py-3 px-4 text-gray-600">{customer.email}</td>
-              <td className="py-3 px-4 text-gray-600">{customer.phone}</td>
-              <td className="py-3 px-4 text-gray-600">{customer.company}</td>
+              <td className="py-3 px-4 text-gray-600">{customer.phone || '—'}</td>
+              <td className="py-3 px-4 text-gray-600">{customer.company || '—'}</td>
               <td className="py-3 px-4">
                 <span className={`
                   px-3 py-1 rounded-full text-xs font-medium
