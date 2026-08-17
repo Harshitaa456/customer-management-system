@@ -22,6 +22,10 @@ export function getCustomers() {
   return request('/api/customers');
 }
 
+export function getCustomerStats() {
+  return request('/api/customers/stats');
+}
+
 export function getCustomer(id) {
   return request(`/api/customers/${id}`);
 }

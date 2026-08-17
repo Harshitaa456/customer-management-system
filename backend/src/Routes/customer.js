@@ -1,100 +1,92 @@
 const express = require("express");
 const prisma = require("../prisma");
-const { resolveOrganizationAndBranch } = require("../services/organizationService");
+const { authenticate } = require("../middleware/auth");
+const { validateCustomerInput } = require("../utils/validateCustomer");
 
 const router = express.Router();
 
-const customerInclude = {
-  organization: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
-  branch: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
-};
+router.use(authenticate);
+
+function handlePrismaError(error, res, fallbackMessage) {
+  if (error.code === "P2002") {
+    return res.status(409).json({
+      message: "A customer with this email already exists",
+    });
+  }
+
+  console.error(error);
+
+  return res.status(500).json({
+    message: fallbackMessage,
+  });
+}
 
 router.get("/", async (req, res) => {
   try {
     const customers = await prisma.customer.findMany({
-      include: customerInclude,
+      where: { userId: req.user.id },
       orderBy: { createdAt: "desc" },
     });
 
     res.json(customers);
   } catch (error) {
-    console.error(error);
+    handlePrismaError(error, res, "Could not fetch customers");
+  }
+});
 
-    res.status(500).json({
-      message: "Could not fetch customers",
+router.get("/stats", async (req, res) => {
+  try {
+    const userFilter = { userId: req.user.id };
+
+    const [total, active, pending, inactive, recent] = await Promise.all([
+      prisma.customer.count({ where: userFilter }),
+      prisma.customer.count({ where: { ...userFilter, status: "Active" } }),
+      prisma.customer.count({ where: { ...userFilter, status: "Pending" } }),
+      prisma.customer.count({ where: { ...userFilter, status: "Inactive" } }),
+      prisma.customer.findMany({
+        where: userFilter,
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }),
+    ]);
+
+    res.json({
+      total,
+      active,
+      pending,
+      inactive,
+      recent,
     });
+  } catch (error) {
+    handlePrismaError(error, res, "Could not fetch customer stats");
   }
 });
 
 router.post("/", async (req, res) => {
   try {
-    const { name, email, phone, company, status, organizationName, branchName } = req.body;
+    const { errors, sanitized } = validateCustomerInput(req.body);
 
-    if (!name || !email) {
+    if (errors.length > 0) {
       return res.status(400).json({
-        message: "Name and email are required",
+        message: errors[0],
+        errors,
       });
-    }
-
-    const hasOrganization = Boolean(organizationName?.trim());
-    const hasBranch = Boolean(branchName?.trim());
-
-    if (hasOrganization !== hasBranch) {
-      return res.status(400).json({
-        message: "Organization and branch are both required when linking a customer",
-      });
-    }
-
-    let organizationId = null;
-    let branchId = null;
-
-    if (hasOrganization && hasBranch) {
-      const { organization, branch } = await resolveOrganizationAndBranch(
-        prisma,
-        organizationName,
-        branchName
-      );
-
-      organizationId = organization.id;
-      branchId = branch.id;
     }
 
     const customer = await prisma.customer.create({
       data: {
-        name,
-        email,
-        phone: phone || null,
-        company: company || null,
-        status: status || "Active",
-        organizationId,
-        branchId,
+        name: sanitized.name,
+        email: sanitized.email,
+        phone: sanitized.phone ?? null,
+        company: sanitized.company ?? null,
+        status: sanitized.status,
+        userId: req.user.id,
       },
-      include: customerInclude,
     });
 
     res.status(201).json(customer);
   } catch (error) {
-    console.error(error);
-
-    if (error.code === "P2002") {
-      return res.status(409).json({
-        message: "A customer with this email already exists",
-      });
-    }
-
-    res.status(500).json({
-      message: "Could not create customer",
-    });
+    handlePrismaError(error, res, "Could not create customer");
   }
 });
 
@@ -108,9 +100,8 @@ router.get("/:id", async (req, res) => {
       });
     }
 
-    const customer = await prisma.customer.findUnique({
-      where: { id },
-      include: customerInclude,
+    const customer = await prisma.customer.findFirst({
+      where: { id, userId: req.user.id },
     });
 
     if (!customer) {
@@ -121,11 +112,7 @@ router.get("/:id", async (req, res) => {
 
     res.json(customer);
   } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      message: "Could not fetch customer",
-    });
+    handlePrismaError(error, res, "Could not fetch customer");
   }
 });
 
@@ -139,8 +126,8 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    const existing = await prisma.customer.findUnique({
-      where: { id },
+    const existing = await prisma.customer.findFirst({
+      where: { id, userId: req.user.id },
     });
 
     if (!existing) {
@@ -149,66 +136,29 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    const { name, email, phone, company, status, organizationName, branchName } = req.body;
+    const { errors, sanitized } = validateCustomerInput(req.body, { isUpdate: true });
 
-    const organizationProvided = organizationName !== undefined;
-    const branchProvided = branchName !== undefined;
-
-    if (organizationProvided !== branchProvided) {
+    if (errors.length > 0) {
       return res.status(400).json({
-        message: "Organization and branch must be updated together",
+        message: errors[0],
+        errors,
       });
-    }
-
-    let organizationId = existing.organizationId;
-    let branchId = existing.branchId;
-
-    if (organizationProvided && branchProvided) {
-      const trimmedOrganization = organizationName?.trim();
-      const trimmedBranch = branchName?.trim();
-
-      if (trimmedOrganization && trimmedBranch) {
-        const { organization, branch } = await resolveOrganizationAndBranch(
-          prisma,
-          trimmedOrganization,
-          trimmedBranch
-        );
-
-        organizationId = organization.id;
-        branchId = branch.id;
-      } else {
-        organizationId = null;
-        branchId = null;
-      }
     }
 
     const customer = await prisma.customer.update({
       where: { id },
       data: {
-        name: name ?? existing.name,
-        email: email ?? existing.email,
-        phone: phone !== undefined ? phone || null : existing.phone,
-        company: company !== undefined ? company || null : existing.company,
-        status: status ?? existing.status,
-        organizationId,
-        branchId,
+        name: sanitized.name ?? existing.name,
+        email: sanitized.email ?? existing.email,
+        phone: sanitized.phone !== undefined ? sanitized.phone : existing.phone,
+        company: sanitized.company !== undefined ? sanitized.company : existing.company,
+        status: sanitized.status ?? existing.status,
       },
-      include: customerInclude,
     });
 
     res.json(customer);
   } catch (error) {
-    console.error(error);
-
-    if (error.code === "P2002") {
-      return res.status(409).json({
-        message: "A customer with this email already exists",
-      });
-    }
-
-    res.status(500).json({
-      message: "Could not update customer",
-    });
+    handlePrismaError(error, res, "Could not update customer");
   }
 });
 
@@ -222,8 +172,8 @@ router.delete("/:id", async (req, res) => {
       });
     }
 
-    const existing = await prisma.customer.findUnique({
-      where: { id },
+    const existing = await prisma.customer.findFirst({
+      where: { id, userId: req.user.id },
     });
 
     if (!existing) {
@@ -240,11 +190,7 @@ router.delete("/:id", async (req, res) => {
       message: "Customer deleted",
     });
   } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      message: "Could not delete customer",
-    });
+    handlePrismaError(error, res, "Could not delete customer");
   }
 });
 

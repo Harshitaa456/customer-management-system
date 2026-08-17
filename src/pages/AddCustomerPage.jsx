@@ -24,6 +24,13 @@ const AddCustomerPage = () => {
     setSaving(true);
     setError('');
 
+    const phoneDigits = formData.phone.replace(/\D/g, '');
+    if (formData.phone && phoneDigits.length !== 10) {
+      setError('Phone number must be exactly 10 digits');
+      setSaving(false);
+      return;
+    }
+
     try {
       await createCustomer({
         name: formData.fullName,
@@ -95,9 +102,10 @@ const AddCustomerPage = () => {
                 <Input
                   label="Phone Number"
                   type="tel"
-                  placeholder="+1 234 567 8900"
+                  placeholder="9876543210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  maxLength={10}
                 />
 
                 <Input
