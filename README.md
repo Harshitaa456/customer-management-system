@@ -136,7 +136,7 @@ npm run preview
 
 ## Future Backend Plan
 
-- **Authentication**: Firebase Authentication
+- **Authentication**: Clerk Authentication
 - **Backend**: Node.js + Express
 - **Database**: PostgreSQL
 - **ORM**: Prisma
