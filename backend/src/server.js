@@ -1,10 +1,8 @@
-const { clerkAuth } = require("./middleware/auth");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const authRoutes = require("./Routes/auth");
 const customerRoutes = require("./Routes/customer");
-const { clerkMiddleware } = require("@clerk/express");
+const { clerkMiddleware } = require("./middleware/auth");
 
 const app = express();
 const PORT = 5001;
@@ -12,10 +10,8 @@ const PORT = 5001;
 app.use(cors());
 app.use(express.json());
 
-app.use(clerkAuth);
 app.use(clerkMiddleware());
 
-app.use("/api/auth", authRoutes);
 app.use("/api/customers", customerRoutes);
 
 app.get("/", (req, res) => {
@@ -25,5 +21,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
-
-

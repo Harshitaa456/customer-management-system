@@ -1,8 +1,5 @@
-const { clerkMiddleware, getAuth } = require("@clerk/express");
+const { clerkMiddleware, clerkClient, getAuth } = require("@clerk/express");
 const prisma = require("../prisma");
-
-// Clerk middleware must run before authentication checks.
-const clerkAuth = clerkMiddleware();
 
 async function authenticate(req, res, next) {
   try {
@@ -14,16 +11,23 @@ async function authenticate(req, res, next) {
       });
     }
 
-    // Find the application's local user linked to this Clerk account.
-    const user = await prisma.user.findUnique({
-      where: { clerkId: userId },
-    });
+    // Clerk is the source of truth for identity. Keep the local record in sync
+    // so application data can safely use a Prisma relation to the user.
+    const clerkUser = await clerkClient.users.getUser(userId);
+    const email = clerkUser.primaryEmailAddress?.emailAddress;
 
-    if (!user) {
-      return res.status(404).json({
-        message: "User account not found",
+    if (!email) {
+      return res.status(400).json({
+        message: "A primary email address is required for this application",
       });
     }
+
+    const name = clerkUser.fullName || clerkUser.username || email;
+    const user = await prisma.user.upsert({
+      where: { clerkId: userId },
+      create: { clerkId: userId, name, email },
+      update: { name, email },
+    });
 
     req.user = user;
     req.auth = { userId };
@@ -39,11 +43,6 @@ async function authenticate(req, res, next) {
 }
 
 module.exports = {
-  clerkAuth,
+  clerkMiddleware,
   authenticate,
 };
-
-// Revision notes:
-// - Replaced old verifyToken() logic with Clerk's Express SDK.
-// - Links Clerk userId to the local Prisma User via clerkId.
-// - Attaches the local user to req.user for customer routes.

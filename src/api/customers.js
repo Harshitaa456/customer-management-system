@@ -1,9 +1,21 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+let getToken;
+
+export function setAuthTokenGetter(tokenGetter) {
+  getToken = tokenGetter;
+}
 
 async function request(path, options = {}) {
+  const token = await getToken?.();
+
+  if (!token) {
+    throw new Error('You must be signed in to make this request');
+  }
+
   const response = await fetch(`${API_URL}${path}`, {
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
       ...options.headers,
     },
     ...options,
