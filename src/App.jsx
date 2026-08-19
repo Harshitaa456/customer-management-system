@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { SignIn, SignUp } from '@clerk/clerk-react';
 import LandingPage from './pages/LandingPage';
 import FeaturesPage from './pages/FeaturesPage';
@@ -17,7 +17,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <Router>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
@@ -26,22 +25,30 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         
         {/* Clerk Auth Routes */}
-        <Route 
-          path="/login" 
-          element={
-            <div className="flex items-center justify-center min-h-screen">
-              <SignIn routing="path" path="/login" />
-            </div>
-          } 
-        />
-        <Route 
-          path="/signup" 
-          element={
-            <div className="flex items-center justify-center min-h-screen">
-              <SignUp routing="path" path="/signup" />
-            </div>
-          } 
-        />
+       <Route 
+  path="/login/*" 
+  element={
+    <div className="flex items-center justify-center min-h-screen">
+      <SignIn
+        routing="path"
+        path="/login"
+        forceRedirectUrl="/dashboard"
+      />
+    </div>
+  } 
+/>
+      <Route 
+  path="/signup/*" 
+  element={
+    <div className="flex items-center justify-center min-h-screen">
+      <SignUp
+        routing="path"
+        path="/signup"
+        forceRedirectUrl="/dashboard"
+      />
+    </div>
+  } 
+/>
 
         {/* Protected Routes */}
         <Route 
@@ -104,7 +111,6 @@ function App() {
         {/* 404 Route */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </Router>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Search, Plus } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
@@ -10,6 +11,7 @@ import { getCustomerStats, deleteCustomer } from '../api/customers';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
@@ -103,15 +105,21 @@ const DashboardPage = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-                  JD
-                </div>
-                <div className="hidden sm:block">
-                  <p className="font-medium text-[#0F172A]">John Doe</p>
-                  <p className="text-sm text-gray-600">Admin</p>
-                </div>
-              </div>
+      <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
+  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+    {user?.firstName?.charAt(0) || "U"}
+  </div>
+
+  <div className="hidden sm:block">
+    <p className="font-medium text-[#0F172A]">
+      {user?.fullName || "User"}
+    </p>
+
+    <p className="text-sm text-gray-600">
+      {user?.primaryEmailAddress?.emailAddress}
+    </p>
+  </div>
+</div>
             </div>
           </div>
         </header>

@@ -1,4 +1,4 @@
-const express = require("express");
+Fconst express = require("express");
 const cors = require("cors");
 const authRoutes = require("./Routes/auth");
 const customerRoutes = require("./Routes/customer");
@@ -19,3 +19,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
+
