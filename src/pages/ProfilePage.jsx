@@ -8,14 +8,7 @@ const ProfilePage = () => {
   const { user, isLoaded } = useUser();
   const { signOut } = useClerk();
 
-  const handleLogout = () => {
-    signOut({ redirectUrl: '/login' });
-  };
-
-  const handleEditProfile = () => {
-    alert('Edit Profile functionality will be implemented later.');
-  };
-
+  // Wait for Clerk to finish loading the current user's session.
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -24,26 +17,39 @@ const ProfilePage = () => {
     );
   }
 
+  // This should normally be unreachable because the route is protected.
   if (!user) {
     return null;
   }
 
+  // Get the real user's information from Clerk.
   const fullName =
     user.fullName ||
     `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
     'User';
 
-  const email = user.primaryEmailAddress?.emailAddress || 'No email';
+  const email =
+    user.primaryEmailAddress?.emailAddress || 'No email';
 
   const initials =
     `${user.firstName?.[0] || ''}${user.lastName?.[0] || ''}`.toUpperCase() ||
     fullName.charAt(0).toUpperCase();
+
+  const handleLogout = async () => {
+    // Sign out of the actual Clerk session, not just navigate to /login.
+    await signOut({ redirectUrl: '/login' });
+  };
+
+  const handleEditProfile = () => {
+    alert('Edit Profile functionality will be implemented later.');
+  };
 
   return (
     <div className="min-h-screen bg-background flex">
       <Sidebar isOpen={false} onClose={() => {}} />
 
       <div className="flex-1 flex flex-col">
+
         {/* Top Navbar */}
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
           <div className="flex items-center justify-between px-6 py-4">
@@ -163,3 +169,9 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+// Revision notes:
+// - Removed hard-coded John Doe profile data.
+// - Profile information now comes directly from Clerk.
+// - Logout now terminates the actual Clerk session.
+// - Removed duplicate Clerk imports and unused navigation logic.

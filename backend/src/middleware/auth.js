@@ -1,54 +1,49 @@
-const { createClerkClient } = require('@clerk/backend');
+const { clerkMiddleware, getAuth } = require("@clerk/express");
+const prisma = require("../prisma");
 
-// Initialize Clerk client with secret key
-const clerkClient = createClerkClient({
-  secretKey: process.env.CLERK_SECRET_KEY,
-});
+// Clerk middleware must run before authentication checks.
+const clerkAuth = clerkMiddleware();
 
-// Clerk authentication middleware for Express
 async function authenticate(req, res, next) {
   try {
-    const authHeader = req.headers.authorization;
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const { isAuthenticated, userId } = getAuth(req);
+
+    if (!isAuthenticated || !userId) {
       return res.status(401).json({
-        message: 'Authentication required',
+        message: "Authentication required",
       });
     }
 
-    const token = authHeader.split(' ')[1];
-    
-    // Verify the token with Clerk
-    const verifiedToken = await clerkClient.verifyToken(token);
-    
-    if (!verifiedToken) {
-      return res.status(401).json({
-        message: 'Invalid or expired token',
+    // Find the application's local user linked to this Clerk account.
+    const user = await prisma.user.findUnique({
+      where: { clerkId: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User account not found",
       });
     }
 
-    req.auth = verifiedToken;
+    req.user = user;
+    req.auth = { userId };
+
     next();
   } catch (error) {
+    console.error("Authentication error:", error);
+
     return res.status(401).json({
-      message: 'Authentication failed',
-      error: error.message,
+      message: "Authentication failed",
     });
   }
 }
 
-// Extract user info from Clerk request
-function getUserInfo(req, res, next) {
-  if (req.auth) {
-    req.user = {
-      clerkUserId: req.auth.sub,
-      email: req.auth.email,
-    };
-  }
-  next();
-}
-
 module.exports = {
+  clerkAuth,
   authenticate,
-  getUserInfo,
 };
+
+// Revision notes:
+// - Replaced old verifyToken() logic with Clerk's Express SDK.
+// - Links Clerk userId to the local Prisma User via clerkId.
+// - Attaches the local user to req.user for customer routes.
