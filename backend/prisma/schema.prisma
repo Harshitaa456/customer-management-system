@@ -19,12 +19,14 @@ model User {
 model Customer {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String
   phone     String?
   company   String?
   status    String   @default("Active")
-  userId    Int?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([userId, email])
 }
