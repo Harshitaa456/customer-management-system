@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Users, 
-  User, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Users,
+  User,
+  Settings,
   LogOut,
-  Menu,
-  X
 } from 'lucide-react';
-import { useState } from 'react';
+import { useClerk } from '@clerk/clerk-react';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
+  const { signOut } = useClerk();
 
   const menuItems = [
     { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -74,10 +73,13 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Logout */}
           <div className="p-4 border-t border-gray-100">
-            <button className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-              <LogOut className="w-5 h-5" />
-              <span className="font-medium">Logout</span>
-            </button>
+          <button
+  onClick={() => signOut({ redirectUrl: '/login' })}
+  className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+>
+  <LogOut className="w-5 h-5" />
+  <span className="font-medium">Logout</span>
+</button>
           </div>
         </div>
       </aside>

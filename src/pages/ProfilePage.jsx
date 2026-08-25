@@ -1,14 +1,11 @@
 import React from 'react';
-import { useClerk, useUser } from '@clerk/clerk-react';
-import { Menu, LogOut, Edit, User, Mail, Briefcase } from 'lucide-react';
+import { useUser } from '@clerk/clerk-react';
+import { Menu, User, Mail, Briefcase } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
-import Button from '../components/Button';
 
 const ProfilePage = () => {
   const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
 
-  // Wait for Clerk to finish loading the current user's session.
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -17,12 +14,10 @@ const ProfilePage = () => {
     );
   }
 
-  // This should normally be unreachable because the route is protected.
   if (!user) {
     return null;
   }
 
-  // Get the real user's information from Clerk.
   const fullName =
     user.fullName ||
     `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
@@ -35,15 +30,6 @@ const ProfilePage = () => {
     `${user.firstName?.[0] || ''}${user.lastName?.[0] || ''}`.toUpperCase() ||
     fullName.charAt(0).toUpperCase();
 
-  const handleLogout = async () => {
-    // Sign out of the actual Clerk session, not just navigate to /login.
-    await signOut({ redirectUrl: '/login' });
-  };
-
-  const handleEditProfile = () => {
-    alert('Edit Profile functionality will be implemented later.');
-  };
-
   return (
     <div className="min-h-screen bg-background flex">
       <Sidebar isOpen={false} onClose={() => {}} />
@@ -53,6 +39,7 @@ const ProfilePage = () => {
         {/* Top Navbar */}
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
           <div className="flex items-center justify-between px-6 py-4">
+
             <div className="flex items-center gap-4">
               <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg">
                 <Menu className="w-6 h-6" />
@@ -68,6 +55,7 @@ const ProfilePage = () => {
                 {initials}
               </div>
             </div>
+
           </div>
         </header>
 
@@ -94,17 +82,20 @@ const ProfilePage = () => {
                 <span className="mt-3 px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
                   User
                 </span>
+
               </div>
 
               {/* Profile Details */}
-              <div className="space-y-6 mb-8">
+              <div className="space-y-6">
 
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                   <User className="w-6 h-6 text-gray-400 mt-1" />
+
                   <div>
                     <p className="text-sm text-gray-600">
                       Full Name
                     </p>
+
                     <p className="text-lg font-medium text-[#0F172A]">
                       {fullName}
                     </p>
@@ -113,10 +104,12 @@ const ProfilePage = () => {
 
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                   <Mail className="w-6 h-6 text-gray-400 mt-1" />
+
                   <div>
                     <p className="text-sm text-gray-600">
                       Email Address
                     </p>
+
                     <p className="text-lg font-medium text-[#0F172A]">
                       {email}
                     </p>
@@ -125,10 +118,12 @@ const ProfilePage = () => {
 
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                   <Briefcase className="w-6 h-6 text-gray-400 mt-1" />
+
                   <div>
                     <p className="text-sm text-gray-600">
                       Role
                     </p>
+
                     <p className="text-lg font-medium text-[#0F172A]">
                       User
                     </p>
@@ -137,41 +132,13 @@ const ProfilePage = () => {
 
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-
-                <Button
-                  onClick={handleEditProfile}
-                  variant="primary"
-                  className="flex-1"
-                >
-                  <Edit className="inline mr-2 w-5 h-5" />
-                  Edit Profile
-                </Button>
-
-                <Button
-                  onClick={handleLogout}
-                  variant="danger"
-                  className="flex-1"
-                >
-                  <LogOut className="inline mr-2 w-5 h-5" />
-                  Logout
-                </Button>
-
-              </div>
-
             </div>
           </div>
         </main>
+
       </div>
     </div>
   );
 };
 
 export default ProfilePage;
-
-// Revision notes:
-// - Removed hard-coded John Doe profile data.
-// - Profile information now comes directly from Clerk.
-// - Logout now terminates the actual Clerk session.
-// - Removed duplicate Clerk imports and unused navigation logic.
