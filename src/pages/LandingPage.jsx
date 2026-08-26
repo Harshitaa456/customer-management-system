@@ -73,7 +73,7 @@ const LandingPage = () => {
               <span className="text-primary"> Effortlessly</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              A modern CRM platform that helps you track, engage, and grow your customer relationships with powerful analytics and intuitive design.
+              A modern Customer management platform that helps you track, engage, and grow your customer relationships with powerful analytics and intuitive design.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/signup">
