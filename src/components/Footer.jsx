@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-100 text-center text-gray-600 text-sm">
-          <p>&copy; 2024 Aventra. All rights reserved.</p>
+          <p>&copy; 2026 Aventra. All rights reserved.</p>
         </div>
       </div>
     </footer>
