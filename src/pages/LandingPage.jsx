@@ -57,7 +57,15 @@ const LandingPage = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="flex-1 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <section
+  className="flex-1"
+  style={{
+    backgroundImage: "url('/aventra-bg.jpg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }}
+>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">

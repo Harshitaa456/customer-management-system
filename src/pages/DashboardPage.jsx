@@ -79,7 +79,10 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+<div
+  className="min-h-screen flex"
+  style={{ backgroundColor: '#F1F5F9' }}
+>
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col">

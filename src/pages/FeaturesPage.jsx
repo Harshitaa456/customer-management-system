@@ -14,7 +14,15 @@ const FeaturesPage = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+    className="min-h-screen flex flex-col"
+    style={{
+      backgroundImage: "url('/aventra-bg.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}
+  >
       <Navbar />
       
       <main className="flex-1 py-20">
