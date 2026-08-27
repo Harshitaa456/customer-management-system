@@ -7,14 +7,20 @@ const router = express.Router();
 
 router.use(authenticate);
 
-function handlePrismaError(error, res, fallbackMessage) {
+function handlePrismaError(error, res, fallbackMessage, context = {}) {
   if (error.code === "P2002") {
     return res.status(409).json({
       message: "A customer with this email already exists",
     });
   }
 
-  console.error(error);
+  console.error("Prisma request failed:", {
+    ...context,
+    code: error.code,
+    meta: error.meta,
+    message: error.message,
+    stack: error.stack,
+  });
 
   return res.status(500).json({
     message: fallbackMessage,
@@ -37,17 +43,33 @@ router.get("/", async (req, res) => {
 router.get("/stats", async (req, res) => {
   try {
     const userFilter = { userId: req.user.id };
+    const runStatsQuery = async (operation, query) => {
+      try {
+        return await query();
+      } catch (error) {
+        error.statsOperation = operation;
+        throw error;
+      }
+    };
 
     const [total, active, pending, inactive, recent] = await Promise.all([
-      prisma.customer.count({ where: userFilter }),
-      prisma.customer.count({ where: { ...userFilter, status: "Active" } }),
-      prisma.customer.count({ where: { ...userFilter, status: "Pending" } }),
-      prisma.customer.count({ where: { ...userFilter, status: "Inactive" } }),
-      prisma.customer.findMany({
-        where: userFilter,
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }),
+      runStatsQuery("total", () => prisma.customer.count({ where: userFilter })),
+      runStatsQuery("active", () =>
+        prisma.customer.count({ where: { ...userFilter, status: "Active" } })
+      ),
+      runStatsQuery("pending", () =>
+        prisma.customer.count({ where: { ...userFilter, status: "Pending" } })
+      ),
+      runStatsQuery("inactive", () =>
+        prisma.customer.count({ where: { ...userFilter, status: "Inactive" } })
+      ),
+      runStatsQuery("recent", () =>
+        prisma.customer.findMany({
+          where: userFilter,
+          orderBy: { createdAt: "desc" },
+          take: 5,
+        })
+      ),
     ]);
 
     res.json({
@@ -58,7 +80,10 @@ router.get("/stats", async (req, res) => {
       recent,
     });
   } catch (error) {
-    handlePrismaError(error, res, "Could not fetch customer stats");
+    handlePrismaError(error, res, "Could not fetch customer stats", {
+      route: "GET /api/customers/stats",
+      operation: error.statsOperation,
+    });
   }
 });
 

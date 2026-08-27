@@ -1,132 +1,62 @@
-const express = require("express");
-const bcrypt = require("bcryptjs");
+const { clerkMiddleware, clerkClient, getAuth } = require("@clerk/express");
 const prisma = require("../prisma");
-const { validateSignupInput, validateLoginInput } = require("../utils/validateAuth");
-const { signToken, authenticate } = require("../middleware/auth");
+async function authenticate(req, res, next) {
+  try {
+    console.log("1. Starting authentication");
 
-const router = express.Router();
+    const { isAuthenticated, userId } = getAuth(req);
+    console.log("2. Clerk auth:", { isAuthenticated, userId });
 
-function handleAuthError(error, res, fallbackMessage) {
-  if (error.code === "P2002") {
-    return res.status(409).json({
-      message: "An account with this email already exists",
+    if (!isAuthenticated || !userId) {
+      return res.status(401).json({
+        message: "Authentication required",
+      });
+    }
+
+    console.log("3. Getting Clerk user");
+
+    const clerkUser = await clerkClient.users.getUser(userId);
+
+    console.log("4. Clerk user retrieved");
+
+    const email = clerkUser.primaryEmailAddress?.emailAddress;
+
+    if (!email) {
+      return res.status(400).json({
+        message: "A primary email address is required",
+      });
+    }
+
+    console.log("5. Upserting Prisma user");
+
+    const name = clerkUser.fullName || clerkUser.username || email;
+
+    const user = await prisma.user.upsert({
+      where: { clerkId: userId },
+      create: { clerkId: userId, name, email },
+      update: { name, email },
+    });
+
+    console.log("6. Authentication successful");
+
+    req.user = user;
+    req.auth = { userId };
+
+    next();
+  } catch (error) {
+    console.error("AUTH ERROR:", error);
+    console.error("AUTH ERROR MESSAGE:", error.message);
+    console.error("AUTH ERROR STACK:", error.stack);
+
+    if (error.code === "P1001") {
+      return res.status(503).json({
+        message: "Database unavailable",
+      });
+    }
+
+    return res.status(500).json({
+      message: "Could not complete authentication",
     });
   }
-
-  console.error(error);
-
-  return res.status(500).json({
-    message: fallbackMessage,
-  });
 }
-
-router.post("/signup", async (req, res) => {
-  try {
-    const { errors, sanitized } = validateSignupInput(req.body);
-
-    if (errors.length > 0) {
-      return res.status(400).json({
-        message: errors[0],
-        errors,
-      });
-    }
-
-    const hashedPassword = await bcrypt.hash(sanitized.password, 10);
-
-    const user = await prisma.user.create({
-      data: {
-        name: sanitized.name,
-        email: sanitized.email,
-        password: hashedPassword,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-      },
-    });
-
-    const token = signToken(user);
-
-    res.status(201).json({
-      message: "Account created successfully",
-      user,
-      token,
-    });
-  } catch (error) {
-    handleAuthError(error, res, "Could not create account");
-  }
-});
-
-router.post("/login", async (req, res) => {
-  try {
-    const { errors, sanitized } = validateLoginInput(req.body);
-
-    if (errors.length > 0) {
-      return res.status(400).json({
-        message: errors[0],
-        errors,
-      });
-    }
-
-    const user = await prisma.user.findUnique({
-      where: { email: sanitized.email },
-    });
-
-    if (!user) {
-      return res.status(401).json({
-        message: "Invalid email or password",
-      });
-    }
-
-    const isPasswordValid = await bcrypt.compare(sanitized.password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({
-        message: "Invalid email or password",
-      });
-    }
-
-    const token = signToken(user);
-
-    res.json({
-      message: "Login successful",
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: user.createdAt,
-      },
-      token,
-    });
-  } catch (error) {
-    handleAuthError(error, res, "Could not log in");
-  }
-});
-
-router.get("/me", authenticate, async (req, res) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: req.user.id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-      },
-    });
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
-
-    res.json(user);
-  } catch (error) {
-    handleAuthError(error, res, "Could not fetch user profile");
-  }
-});
-
-module.exports = router;
+module.exports = { authenticate };
