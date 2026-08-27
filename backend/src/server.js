@@ -1,11 +1,28 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const customerRoutes = require("./Routes/customer");
-const { clerkMiddleware } = require("./middleware/auth");
+// require("dotenv").config();
+// const express = require("express");
+// const cors = require("cors");
+// const customerRoutes = require("./Routes/customer");
+// const { clerkMiddleware } = require("./middleware/auth");
 
+// const app = express();
+// const PORT = 5001;
+
+// app.use(cors());
+// app.use(express.json());
+
+// app.use(clerkMiddleware());
+
+// app.use("/api/customers", customerRoutes);
+
+// app.get("/", (req, res) => {
+//   res.json({ message: "Aventra CRM API is running" });
+// });
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running at http://localhost:${PORT}`);
+// });
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +35,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Aventra CRM API is running" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server is running on port ${PORT}`);
 });
