@@ -72,12 +72,12 @@ const CustomersPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex min-w-0">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col">
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
@@ -87,43 +87,44 @@ const CustomersPage = () => {
               </button>
               <h1 className="text-2xl font-bold text-[#0F172A]">Customers</h1>
             </div>
-            <div className="flex items-center gap-3">
-  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-    {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
-  </div>
 
-  <div className="hidden sm:block">
-    <p className="font-medium text-[#0F172A]">
-      {user?.fullName || 'User'}
-    </p>
-    <p className="text-sm text-gray-600">
-      {user?.primaryEmailAddress?.emailAddress}
-    </p>
-  </div>
-</div>
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
+              <div className="hidden sm:block min-w-0">
+                <p className="font-medium text-[#0F172A] truncate">
+                  {user?.fullName || 'User'}
+                </p>
+                <p className="text-sm text-gray-600 truncate">
+                  {user?.primaryEmailAddress?.emailAddress}
+                </p>
+              </div>
+            </div>
           </div>
         </header>
 
-        <main className="flex-1 p-6">
-          <div className="card p-6">
+        <main className="flex-1 p-4 sm:p-6">
+          <div className="card p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div className="flex flex-col sm:flex-row gap-4 flex-1">
-                <SearchBar
-                  placeholder="Search customers..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="sm:w-80"
-                />
+                <div className="w-full sm:w-80">
+                  <SearchBar
+                    placeholder="Search customers..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
                 <select
                   value={filterStatus}
                   onChange={(e) => {
                     setFilterStatus(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 >
                   <option value="all">All Status</option>
                   <option value="Active">Active</option>
@@ -131,8 +132,8 @@ const CustomersPage = () => {
                   <option value="Inactive">Inactive</option>
                 </select>
               </div>
-              <Link to="/customers/new">
-                <Button variant="primary">
+              <Link to="/customers/new" className="w-full sm:w-auto">
+                <Button variant="primary" className="w-full sm:w-auto">
                   <Plus className="inline mr-2 w-5 h-5" />
                   Add Customer
                 </Button>
@@ -152,7 +153,7 @@ const CustomersPage = () => {
                   onDelete={handleDelete}
                   onView={handleView}
                 />
-                <div className="mt-6 flex justify-end">
+                <div className="mt-6 flex justify-center sm:justify-end">
                   <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}

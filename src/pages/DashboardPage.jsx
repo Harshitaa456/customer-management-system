@@ -80,14 +80,14 @@ const DashboardPage = () => {
 
   return (
 <div
-  className="min-h-screen flex"
+  className="min-h-screen flex min-w-0"
   style={{ backgroundColor: '#F1F5F9' }}
 >
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col">
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
@@ -95,14 +95,14 @@ const DashboardPage = () => {
               >
                 <Menu className="w-6 h-6" />
               </button>
-              <div className="relative">
+              <div className="relative w-full sm:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search recent customers..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-64"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
               </div>
             </div>
@@ -127,14 +127,14 @@ const DashboardPage = () => {
           </div>
         </header>
 
-        <main className="flex-1 p-6">
-          <div className="mb-6 flex items-center justify-between">
+        <main className="flex-1 p-4 sm:p-6">
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-2xl font-bold text-[#0F172A]">Dashboard</h1>
               <p className="text-gray-600">Welcome back! Here's what's happening with your customers.</p>
             </div>
-            <Link to="/customers/new">
-              <Button variant="primary">
+            <Link to="/customers/new" className="w-full sm:w-auto">
+              <Button variant="primary" className="w-full sm:w-auto">
                 <Plus className="inline mr-2 w-5 h-5" />
                 Add Customer
               </Button>
@@ -146,13 +146,13 @@ const DashboardPage = () => {
 
           {!loading && !error && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 mb-8">
                 {statCards.map((stat) => (
                   <DashboardCard key={stat.title} {...stat} />
                 ))}
               </div>
 
-              <div className="card p-6">
+              <div className="card p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-semibold text-[#0F172A]">Recent Customers</h2>
                   <Link to="/customers" className="text-primary hover:underline font-medium">
