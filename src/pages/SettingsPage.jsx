@@ -32,12 +32,14 @@ const SettingsPage = () => {
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6">
-          <div className="max-w-5xl mx-auto">
-            <UserProfile
-              routing="path"
-              path="/settings"
-            />
+        <main className="flex-1 min-w-0 p-4 sm:p-6 overflow-x-auto">
+          <div className="w-full max-w-5xl mx-auto min-w-0">
+            <div className="w-full overflow-x-auto">
+              <UserProfile
+                routing="path"
+                path="/settings"
+              />
+            </div>
           </div>
         </main>
       </div>

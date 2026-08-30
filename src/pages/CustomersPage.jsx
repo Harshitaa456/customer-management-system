@@ -43,12 +43,16 @@ const CustomersPage = () => {
       customer.name?.toLowerCase().includes(query) ||
       customer.email?.toLowerCase().includes(query) ||
       customer.company?.toLowerCase().includes(query);
-    const matchesFilter = filterStatus === 'all' || customer.status === filterStatus;
+    const matchesFilter =
+      filterStatus === 'all' || customer.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
 
   const totalPages = Math.max(1, Math.ceil(filteredCustomers.length / 5));
-  const displayedCustomers = filteredCustomers.slice((currentPage - 1) * 5, currentPage * 5);
+  const displayedCustomers = filteredCustomers.slice(
+    (currentPage - 1) * 5,
+    currentPage * 5
+  );
 
   const handleEdit = (id) => {
     navigate(`/customers/${id}/edit`);
@@ -73,7 +77,10 @@ const CustomersPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex min-w-0">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       <div className="flex-1 min-w-0 flex flex-col">
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
@@ -81,21 +88,26 @@ const CustomersPage = () => {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
               >
                 <Menu className="w-6 h-6" />
               </button>
-              <h1 className="text-2xl font-bold text-[#0F172A]">Customers</h1>
+
+              <h1 className="text-2xl font-bold text-[#0F172A]">
+                Customers
+              </h1>
             </div>
 
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
                 {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </div>
+
               <div className="hidden sm:block min-w-0">
                 <p className="font-medium text-[#0F172A] truncate">
                   {user?.fullName || 'User'}
                 </p>
+
                 <p className="text-sm text-gray-600 truncate">
                   {user?.primaryEmailAddress?.emailAddress}
                 </p>
@@ -106,9 +118,9 @@ const CustomersPage = () => {
 
         <main className="flex-1 p-4 sm:p-6">
           <div className="card p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-              <div className="flex flex-col sm:flex-row gap-4 flex-1">
-                <div className="w-full sm:w-80">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row gap-4 flex-1 min-w-0">
+                <div className="w-full sm:w-80 lg:w-72 xl:w-80">
                   <SearchBar
                     placeholder="Search customers..."
                     value={searchQuery}
@@ -118,6 +130,7 @@ const CustomersPage = () => {
                     }}
                   />
                 </div>
+
                 <select
                   value={filterStatus}
                   onChange={(e) => {
@@ -132,36 +145,63 @@ const CustomersPage = () => {
                   <option value="Inactive">Inactive</option>
                 </select>
               </div>
-              <Link to="/customers/new" className="w-full sm:w-auto">
-                <Button variant="primary" className="w-full sm:w-auto">
+
+              <Link
+                to="/customers/new"
+                className="w-full lg:w-auto"
+              >
+                <Button
+                  variant="primary"
+                  className="w-full lg:w-auto"
+                >
                   <Plus className="inline mr-2 w-5 h-5" />
                   Add Customer
                 </Button>
               </Link>
             </div>
 
-            {loading && <p className="text-gray-600 py-8 text-center">Loading customers...</p>}
-            {error && <p className="text-red-600 py-8 text-center">{error}</p>}
-            {!loading && !error && displayedCustomers.length === 0 && (
-              <p className="text-gray-600 py-8 text-center">No customers found.</p>
+            {loading && (
+              <p className="text-gray-600 py-8 text-center">
+                Loading customers...
+              </p>
             )}
-            {!loading && !error && displayedCustomers.length > 0 && (
-              <>
-                <CustomerTable
-                  customers={displayedCustomers}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                  onView={handleView}
-                />
-                <div className="mt-6 flex justify-center sm:justify-end">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={setCurrentPage}
-                  />
-                </div>
-              </>
+
+            {error && (
+              <p className="text-red-600 py-8 text-center">
+                {error}
+              </p>
             )}
+
+            {!loading &&
+              !error &&
+              displayedCustomers.length === 0 && (
+                <p className="text-gray-600 py-8 text-center">
+                  No customers found.
+                </p>
+              )}
+
+            {!loading &&
+              !error &&
+              displayedCustomers.length > 0 && (
+                <>
+                  <div className="w-full overflow-x-auto">
+                    <CustomerTable
+                      customers={displayedCustomers}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                      onView={handleView}
+                    />
+                  </div>
+
+                  <div className="mt-6 flex justify-center sm:justify-end">
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={setCurrentPage}
+                    />
+                  </div>
+                </>
+              )}
           </div>
         </main>
       </div>

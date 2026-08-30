@@ -53,41 +53,47 @@ const AddCustomerPage = () => {
     <div className="min-h-screen bg-background flex">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col">
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
                 className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+                aria-label="Open menu"
               >
                 <Menu className="w-6 h-6" />
               </button>
+
               <Link to="/customers" className="p-2 hover:bg-gray-100 rounded-lg">
                 <ArrowLeft className="w-6 h-6" />
               </Link>
-              <h1 className="text-2xl font-bold text-[#0F172A]">Add New Customer</h1>
-            </div>
-            <div className="flex items-center gap-3">
-  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-    {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
-  </div>
 
-  <div className="hidden sm:block">
-    <p className="font-medium text-[#0F172A]">
-      {user?.fullName || 'User'}
-    </p>
-    <p className="text-sm text-gray-600">
-      {user?.primaryEmailAddress?.emailAddress}
-    </p>
-  </div>
-</div>
+              <h1 className="text-2xl font-bold text-[#0F172A]">
+                Add New Customer
+              </h1>
+            </div>
+
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
+
+              <div className="hidden sm:block min-w-0">
+                <p className="font-medium text-[#0F172A] truncate">
+                  {user?.fullName || 'User'}
+                </p>
+                <p className="text-sm text-gray-600 truncate">
+                  {user?.primaryEmailAddress?.emailAddress}
+                </p>
+              </div>
+            </div>
           </div>
         </header>
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 sm:p-6">
           <div className="max-w-2xl mx-auto">
-            <div className="card p-8">
+            <div className="card p-4 sm:p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {error && <p className="text-red-600 text-sm">{error}</p>}
 
@@ -96,7 +102,9 @@ const AddCustomerPage = () => {
                   type="text"
                   placeholder="John Doe"
                   value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, fullName: e.target.value })
+                  }
                   required
                 />
 
@@ -105,7 +113,9 @@ const AddCustomerPage = () => {
                   type="email"
                   placeholder="john@company.com"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   required
                 />
 
@@ -114,7 +124,9 @@ const AddCustomerPage = () => {
                   type="tel"
                   placeholder="9876543210"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
                   maxLength={10}
                 />
 
@@ -123,14 +135,21 @@ const AddCustomerPage = () => {
                   type="text"
                   placeholder="Acme Inc"
                   value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, company: e.target.value })
+                  }
                 />
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-[#0F172A]">Customer Status</label>
+                  <label className="text-sm font-medium text-[#0F172A]">
+                    Customer Status
+                  </label>
+
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, status: e.target.value })
+                    }
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
                   >
                     <option value="Active">Active</option>
@@ -139,12 +158,22 @@ const AddCustomerPage = () => {
                   </select>
                 </div>
 
-                <div className="flex items-center gap-4 pt-4">
-                  <Button type="submit" variant="primary" disabled={saving}>
+                <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center">
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={saving}
+                    className="w-full sm:w-auto"
+                  >
                     {saving ? 'Saving...' : 'Save Customer'}
                   </Button>
-                  <Link to="/customers">
-                    <Button type="button" variant="secondary">
+
+                  <Link to="/customers" className="w-full sm:w-auto">
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      className="w-full sm:w-auto"
+                    >
                       Cancel
                     </Button>
                   </Link>
