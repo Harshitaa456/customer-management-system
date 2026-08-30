@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ArrowLeft } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
@@ -7,6 +8,7 @@ import Input from '../components/Input';
 import { createCustomer } from '../api/customers';
 
 const AddCustomerPage = () => {
+  const { user } = useUser();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -66,12 +68,20 @@ const AddCustomerPage = () => {
               </Link>
               <h1 className="text-2xl font-bold text-[#0F172A]">Add New Customer</h1>
             </div>
-
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-                JD
-              </div>
-            </div>
+  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+    {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
+  </div>
+
+  <div className="hidden sm:block">
+    <p className="font-medium text-[#0F172A]">
+      {user?.fullName || 'User'}
+    </p>
+    <p className="text-sm text-gray-600">
+      {user?.primaryEmailAddress?.emailAddress}
+    </p>
+  </div>
+</div>
           </div>
         </header>
 

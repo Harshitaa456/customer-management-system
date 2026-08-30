@@ -2,8 +2,8 @@ import React from 'react';
 
 const CustomerTable = ({ customers, onEdit, onDelete, onView }) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full">
+<div className="overflow-x-auto -mx-4 sm:mx-0">
+<table className="min-w-[700px] w-full">
         <thead>
           <tr className="border-b border-gray-200">
             <th className="text-left py-3 px-4 font-semibold text-[#0F172A]">Customer</th>

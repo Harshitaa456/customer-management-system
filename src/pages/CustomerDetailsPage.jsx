@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Menu, ArrowLeft, Edit, Trash2, Mail, Phone, Building, Calendar } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
@@ -6,6 +7,7 @@ import Button from '../components/Button';
 import { getCustomer, deleteCustomer } from '../api/customers';
 
 const CustomerDetailsPage = () => {
+  const { user } = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -79,10 +81,19 @@ const CustomerDetailsPage = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-                JD
-              </div>
-            </div>
+  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+    {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
+  </div>
+
+  <div className="hidden sm:block">
+    <p className="font-medium text-[#0F172A]">
+      {user?.fullName || 'User'}
+    </p>
+    <p className="text-sm text-gray-600">
+      {user?.primaryEmailAddress?.emailAddress}
+    </p>
+  </div>
+</div>
           </div>
         </header>
 
