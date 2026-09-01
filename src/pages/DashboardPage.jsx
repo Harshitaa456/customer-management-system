@@ -79,13 +79,19 @@ const DashboardPage = () => {
   };
 
   return (
-<div
-  className="min-h-screen flex min-w-0"
-  style={{ backgroundColor: '#F1F5F9' }}
->
+    <div
+      className="min-h-screen flex min-w-0"
+      style={{
+        backgroundImage: "url('/aventra-bg2.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 min-w-0 flex flex-col">
+        {/*searchbar/header*/}
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
@@ -107,22 +113,23 @@ const DashboardPage = () => {
               </div>
             </div>
 
+            {/*useravatar*/}
             <div className="flex items-center gap-4">
-      <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-    {user?.firstName?.charAt(0) || "U"}
-  </div>
+              <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
+                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                  {user?.firstName?.charAt(0) || "U"}
+                </div>
 
-  <div className="hidden sm:block">
-    <p className="font-medium text-[#0F172A]">
-      {user?.fullName || "User"}
-    </p>
+                <div className="hidden sm:block">
+                  <p className="font-medium text-[#0F172A]">
+                    {user?.fullName || "User"}
+                  </p>
 
-    <p className="text-sm text-gray-600">
-      {user?.primaryEmailAddress?.emailAddress}
-    </p>
-  </div>
-</div>
+                  <p className="text-sm text-gray-600">
+                    {user?.primaryEmailAddress?.emailAddress}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </header>

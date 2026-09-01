@@ -2,7 +2,8 @@ import React from 'react';
 
 const DashboardCard = ({ title, value, icon: Icon, trend, trendUp = true }) => {
   return (
-    <div className="card p-6">
+     <div className="card bg-white/50 p-6 hover:bg-slate-400"> 
+      {/* tp chnage cards clr or Transparency tamper with this(above) */}
       <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-600 text-sm font-medium">{title}</p>

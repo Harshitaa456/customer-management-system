@@ -1,356 +1,514 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  CheckCircle,
-  Star,
-  Zap,
-  Shield,
-  BarChart
-} from 'lucide-react';
+  UserPlus,
+  Pencil,
+  Activity,
+  Search,
+  Plus,
+  LayoutDashboard,
+  Users,
+  Settings,
+  LogOut,
+  Eye,
+  Trash2,
+  Clock,
+  UserCheck,
+  UserX,
+} from "lucide-react";
 
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Button from '../components/Button';
-import Logo from '../components/Logo';
-
-const reviews = [
-  {
-    name: 'Sarah Johnson',
-    company: 'TechCorp',
-    role: 'CEO',
-    rating: 5,
-    text: 'Aventra has transformed how we manage our customer relationships. The intuitive interface and powerful features have helped us increase customer satisfaction by 40%.',
-    avatar: 'SJ'
-  },
-  {
-    name: 'Michael Chen',
-    company: 'Innovate.io',
-    role: 'Product Manager',
-    rating: 5,
-    text: 'The best CRM we have ever used. The customer health analytics alone have saved us countless hours and helped us retain more customers.',
-    avatar: 'MC'
-  },
-  {
-    name: 'Emily Davis',
-    company: 'Startup Co',
-    role: 'Founder',
-    rating: 5,
-    text: 'Simple, powerful, and affordable. Aventra helped us scale from 100 to 10,000 customers without any growing pains. Highly recommended!',
-    avatar: 'ED'
-  },
-  {
-    name: 'James Wilson',
-    company: 'Enterprise',
-    role: 'Sales Director',
-    rating: 5,
-    text: 'The team collaboration features are fantastic. Our sales team can now work together seamlessly and close deals faster than ever.',
-    avatar: 'JW'
-  }
-];
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Button from "../components/Button";
 
 const LandingPage = () => {
-  useEffect(() => {
-    const hash = window.location.hash;
-
-    if (hash === '#reviews') {
-      const element = document.getElementById('reviews');
-
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, []);
-
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-[#f7f7f4]"
+    style={{
+      backgroundImage: "url('/aventra-bg.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+    }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <section
-        className="flex-1"
+      {/* HERO */}
+      <main className="flex-1">
+        <section className="relative overflow-hidden">
+          {/* Decorative background */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.12),_transparent_30%),radial-gradient(circle_at_left,_rgba(16,185,129,0.08),_transparent_28%)]" />
+
+          <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 pt-20 pb-16 lg:pt-28 lg:pb-24">
+            <div className="max-w-3xl mx-auto text-center">
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0F172A] leading-[1.1]">
+                Customer management,
+                <span className="block text-primary mt-2">
+                  without the mess.
+                </span>
+              </h1>
+
+              <p className="mt-7 text-lg sm:text-xl leading-relaxed text-gray-600 max-w-2xl mx-auto">
+                Keep your customer information organised in one place. Add
+                customers, update their details, and easily keep track of their
+                current status.
+              </p>
+
+              <div className="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/signup">
+                  <Button
+                    variant="primary"
+                    className="w-full flex sm:w-auto px-7 py-3.5 text-base"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+
+                <Link to="/login" className="w-full sm:w-auto">
+                  <Button
+                    variant="secondary"
+                    className="w-full sm:w-auto px-7 py-3.5 text-base"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* APP PREVIEW */}
+            {/* APP PREVIEW */}
+<div className="mt-16 lg:mt-20 max-w-6xl mx-auto">
+  <div className="rounded-2xl border border-gray-200 bg-[#f8f9fc] shadow-2xl overflow-hidden">
+
+    {/* Top Bar */}
+    <div className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-5 sm:px-7">
+
+      <div className="flex items-center gap-3 border border-gray-200 rounded-lg px-3 py-2 w-48 sm:w-64">
+        <Search className="w-4 h-4 text-gray-400" />
+        <span className="text-xs sm:text-sm text-gray-400 truncate">
+          Search customers...
+        </span>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-semibold">
+          H
+        </div>
+
+        <div className="hidden sm:block">
+          <p className="text-sm font-semibold text-[#0F172A]">
+            Your Account
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="flex">
+
+      {/* Sidebar */}
+      <aside className="hidden md:flex w-48 lg:w-56 bg-white border-r border-gray-200 min-h-[500px] flex-col">
+
+        <div className="px-6 py-6">
+          <h3 className="text-xl font-bold text-[#0F172A]">
+            Aventra
+          </h3>
+        </div>
+
+        <nav className="px-3 space-y-1">
+
+          <PreviewNavItem
+            icon={LayoutDashboard}
+            label="Dashboard"
+            active
+          />
+
+          <PreviewNavItem
+            icon={Users}
+            label="Customers"
+          />
+
+          <PreviewNavItem
+            icon={UserCheck}
+            label="Profile"
+          />
+
+          <PreviewNavItem
+            icon={Settings}
+            label="Settings"
+          />
+        </nav>
+
+        <div className="mt-auto p-4 border-t border-gray-100">
+          <div className="flex items-center gap-3 text-red-500 text-sm font-medium">
+            <LogOut className="w-4 h-4" />
+            Logout
+          </div>
+        </div>
+      </aside>
+
+      {/* Dashboard */}
+      <div className="flex-1 p-5 sm:p-7 lg:p-8 min-w-0">
+
+        {/* Dashboard Header */}
+        <div className="flex items-start justify-between gap-4 mb-7">
+
+          <div>
+            <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A]">
+              Dashboard
+            </h3>
+
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              Here's what's happening with your customers.
+            </p>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-lg text-sm font-medium">
+            <Plus className="w-4 h-4" />
+            Add Customer
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+
+          <PreviewStat
+            title="Total Customers"
+            value="24"
+            icon={Users}
+          />
+
+          <PreviewStat
+            title="Active Customers"
+            value="16"
+            icon={UserCheck}
+          />
+
+          <PreviewStat
+            title="Pending"
+            value="5"
+            icon={Clock}
+          />
+
+          <PreviewStat
+            title="Inactive"
+            value="3"
+            icon={UserX}
+          />
+
+        </div>
+
+        {/* Recent Customers */}
+        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+
+          <div className="flex items-center justify-between px-5 py-5 border-b border-gray-100">
+
+            <h4 className="font-semibold text-[#0F172A]">
+              Recent Customers
+            </h4>
+
+            <span className="text-sm text-primary font-medium">
+              View All
+            </span>
+          </div>
+
+          {/* Table Header */}
+          <div className="hidden sm:grid grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 px-5 py-3 text-xs font-medium text-gray-400 border-b border-gray-100">
+            <span>Customer</span>
+            <span>Email</span>
+            <span>Status</span>
+            <span>Company</span>
+            <span>Actions</span>
+          </div>
+
+          <PreviewCustomer
+            initials="KK"
+            name="Kritika Ahuja"
+            email="kritika@gmail.com"
+            company="HCL"
+            status="Active"
+          />
+
+          <PreviewCustomer
+            initials="R"
+            name="Rohini"
+            email="rohini@gmail.com"
+            company="Acer"
+            status="Inactive"
+          />
+
+          <PreviewCustomer
+            initials="S"
+            name="Shweta"
+            email="shweta@gmail.com"
+            company="Havells"
+            status="Active"
+          />
+
+          <PreviewCustomer
+            initials="SA"
+            name="Ankur Saxena"
+            email="ankur@gmail.com"
+            company="Wipro"
+            status="Inactive"
+          />
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <p className="text-center text-sm text-gray-500 mt-5">
+    A simple place to keep your customer records organised.
+  </p>
+</div>
+          </div>
+        </section>
+
+        {/* WHAT YOU CAN DO */}
+        <section className=" py-20 lg:py-28"
         style={{
           backgroundImage: "url('/aventra-bg.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="text-center">
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}>
+          <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10">
+            <div className="max-w-xl mb-12 lg:mb-16">
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+                Keep it simple
+              </p>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] mb-6">
-              Manage Your Customers
-              <span className="text-primary"> Effortlessly</span>
-            </h1>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight">
+                Everything you need to manage your customer records.
+              </h2>
+            </div>
 
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              A modern Customer management platform that helps you track,
-              engage, and grow your customer relationships with powerful
-              analytics and intuitive design.
-            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              <FeatureCard
+                icon={UserPlus}
+                number="01"
+                title="Add customers"
+                description="Store customer information in one organised place instead of keeping track of multiple spreadsheets."
+              />
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <FeatureCard
+                icon={Activity}
+                number="02"
+                title="Track their status"
+                description="Quickly see whether a customer is active, inactive, or pending and update their status whenever needed."
+              />
 
-              <Link to="/signup" className="w-full sm:w-auto">
-                <Button
-                  variant="primary"
-                  className="w-full sm:w-auto text-lg px-8 py-3"
-                >
-                  Get Started Free
-                  <ArrowRight className="inline ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-
-              <Link to="/login" className="w-full sm:w-auto">
-                <Button
-                  variant="secondary"
-                  className="w-full sm:w-auto text-lg px-8 py-3"
-                >
-                  Sign In
-                </Button>
-              </Link>
-
+              <FeatureCard
+                icon={Pencil}
+                number="03"
+                title="Keep records updated"
+                description="View, edit, or remove customer information easily whenever details change."
+              />
             </div>
           </div>
+        </section>
 
-          {/* Dashboard Preview */}
-          <div className="mt-10 sm:mt-16 relative">
-            <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+        {/* SIMPLE CTA */}
+        <section className="py-20 lg:py-28">
+          <div className="max-w-5xl mx-auto px-6 sm:px-8">
+            <div className="rounded-3xl bg-[#0F172A] px-7 py-14 sm:px-12 sm:py-16 text-center">
+              <p className="text-primary font-medium mb-4">
+                Aventra
+              </p>
 
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                Keep your customer information in one place.
+              </h2>
+
+              <p className="text-gray-300 mt-5 max-w-xl mx-auto text-lg leading-relaxed">
+                A straightforward way to add, organise, and manage your customer
+                records without unnecessary complexity.
+              </p>
+
+              <div className="mt-8">
+                <Link to="/signup">
+                  <Button
+                    variant="secondary"
+                    className="px-7 py-3.5 flex text-base"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-gray-50 rounded-lg p-4 h-32"></div>
-                <div className="bg-gray-50 rounded-lg p-4 h-32"></div>
-                <div className="bg-gray-50 rounded-lg p-4 h-32"></div>
-              </div>
-
-              <div className="mt-4 bg-gray-50 rounded-lg p-4 h-48"></div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A] mb-4">
-              Everything You Need to Succeed
-            </h2>
-
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Powerful features designed to help you manage customers efficiently
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <FeatureCard
-              icon={Zap}
-              title="Lightning Fast"
-              description="Built for speed with instant search and real-time updates across all your customer data."
-            />
-
-            <FeatureCard
-              icon={Shield}
-              title="Secure & Reliable"
-              description="Enterprise-grade security with encrypted data storage and reliable backups."
-            />
-
-            <FeatureCard
-              icon={BarChart}
-              title="Powerful Analytics"
-              description="Get insights into customer behavior with detailed analytics and reporting tools."
-            />
-
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-primary to-secondary">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-              Ready to Transform Your Customer Management?
-            </h2>
-
-            <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8">
-              Join thousands of businesses already using Aventra to grow their
-              customer relationships.
-            </p>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-              <p className="text-4xl font-bold text-white mb-2">
-                10K+
-              </p>
-              <p className="text-white/80">
-                Active Users
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-              <p className="text-4xl font-bold text-white mb-2">
-                99.9%
-              </p>
-              <p className="text-white/80">
-                Uptime
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-              <p className="text-4xl font-bold text-white mb-2">
-                24/7
-              </p>
-              <p className="text-white/80">
-                Support
-              </p>
-            </div>
-
-          </div>
-
-          {/* Benefits */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-
-            <div className="flex items-center gap-3 text-white">
-              <CheckCircle className="w-6 h-6" />
-              <span>No credit card required</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-white">
-              <CheckCircle className="w-6 h-6" />
-              <span>14-day free trial</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-white">
-              <CheckCircle className="w-6 h-6" />
-              <span>Cancel anytime</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-white">
-              <CheckCircle className="w-6 h-6" />
-              <span>24/7 customer support</span>
-            </div>
-
-          </div>
-
-          <div className="text-center">
-
-            <Link to="/signup" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                className="w-full sm:w-auto text-lg px-8 py-3"
-              >
-                Start Your Free Trial
-                <ArrowRight className="inline ml-2 w-5 h-5" />
-              </Button>
-            </Link>
-
-            <p className="text-white/70 text-sm mt-4">
-              No setup fees • No hidden charges • Start in minutes
-            </p>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews Section */}
-      <section
-        id="reviews"
-        className="py-12 sm:py-16 lg:py-20 bg-background"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-12 sm:mb-16">
-
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A] mb-4">
-              What Our Customers Say
-            </h2>
-
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Trusted by thousands of businesses worldwide
-            </p>
-
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            {reviews.map((review, index) => (
-              <div
-                key={index}
-                className="card p-4 sm:p-6 lg:p-8"
-              >
-
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-
-                <p className="text-gray-700 mb-6 leading-relaxed">
-                  "{review.text}"
-                </p>
-
-                <div className="flex items-center gap-4">
-
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-                    {review.avatar}
-                  </div>
-
-                  <div>
-                    <p className="font-semibold text-[#0F172A]">
-                      {review.name}
-                    </p>
-
-                    <p className="text-sm text-gray-600">
-                      {review.role}, {review.company}
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-            ))}
-
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>
   );
 };
 
-const FeatureCard = ({ icon: Icon, title, description }) => (
-  <div className="card p-6 hover:shadow-lg transition-shadow">
 
-    <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-      <Icon className="w-6 h-6 text-primary" />
+/* COMPONENTS */
+
+const FeatureCard = ({ icon: Icon, number, title, description }) => (
+  <div className="group rounded-2xl border border-gray-200 bg-[#fafaf8] p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div className="flex items-start justify-between mb-10">
+      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+        <Icon className="w-6 h-6 text-primary" />
+      </div>
+
+      <span className="text-sm text-gray-400 font-medium">
+        {number}
+      </span>
     </div>
 
-    <h3 className="text-xl font-semibold text-[#0F172A] mb-2">
+    <h3 className="text-xl font-semibold text-[#0F172A] mb-3">
       {title}
     </h3>
 
-    <p className="text-gray-600">
+    <p className="text-gray-600 leading-relaxed">
       {description}
     </p>
-
   </div>
 );
+
+
+const PreviewCard = ({ label, value }) => (
+  <div className="rounded-xl border border-gray-100 p-5">
+    <p className="text-sm text-gray-500">
+      {label}
+    </p>
+
+    <p className="text-3xl font-semibold text-[#0F172A] mt-2">
+      {value}
+    </p>
+  </div>
+);
+
+
+const PreviewRow = ({ name, status, statusStyle }) => (
+  <div className="grid grid-cols-3 items-center px-5 py-4 border-t border-gray-100 text-sm">
+    <span className="text-gray-700 font-medium">
+      {name}
+    </span>
+
+    <span>
+      <span
+        className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${statusStyle}`}
+      >
+        {status}
+      </span>
+    </span>
+
+    <span className="text-right text-gray-400">
+      Recently
+    </span>
+  </div>
+);
+const PreviewNavItem = ({ icon: Icon, label, active }) => (
+  <div
+    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm ${
+      active
+        ? "bg-primary text-white shadow-sm"
+        : "text-gray-500"
+    }`}
+  >
+    <Icon className="w-4 h-4" />
+    <span>{label}</span>
+  </div>
+);
+const PreviewCustomer = ({
+  initials,
+  name,
+  email,
+  company,
+  status,
+}) => {
+  const isActive = status === "Active";
+
+  return (
+    <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 items-center px-5 py-4 border-b border-gray-100 last:border-b-0">
+
+      {/* Customer */}
+      <div className="flex items-center gap-3 min-w-0">
+
+        <div className="w-9 h-9 shrink-0 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-semibold">
+          {initials}
+        </div>
+
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-[#0F172A] truncate">
+            {name}
+          </p>
+
+          <p className="sm:hidden text-xs text-gray-400 truncate mt-0.5">
+            {email}
+          </p>
+        </div>
+
+      </div>
+
+      {/* Email */}
+      <p className="hidden sm:block text-xs text-gray-500 truncate">
+        {email}
+      </p>
+
+      {/* Status */}
+      <div className="hidden sm:block">
+        <span
+          className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
+            isActive
+              ? "bg-green-50 text-green-700"
+              : "bg-gray-100 text-gray-500"
+          }`}
+        >
+          {status}
+        </span>
+      </div>
+
+      {/* Company */}
+      <p className="hidden sm:block text-xs text-gray-500">
+        {company}
+      </p>
+
+      {/* Actions */}
+      <div className="flex items-center gap-3 text-gray-400">
+
+        <Eye className="w-3.5 h-3.5" />
+
+        <Pencil className="w-3.5 h-3.5" />
+
+        <Trash2 className="w-3.5 h-3.5 text-red-400" />
+
+      </div>
+
+    </div>
+  );
+};
+const PreviewStat = ({ title, value, icon: Icon }) => (
+  <div className="bg-white border border-gray-200 rounded-xl p-4">
+
+    <div className="flex items-center justify-between gap-2">
+
+      <div>
+        <p className="text-[10px] sm:text-xs text-gray-500">
+          {title}
+        </p>
+
+        <p className="text-xl sm:text-2xl font-semibold text-[#0F172A] mt-2">
+          {value}
+        </p>
+      </div>
+
+      <div className="hidden sm:flex w-9 h-9 rounded-lg bg-primary/10 items-center justify-center">
+        <Icon className="w-5 h-5 text-primary" />
+      </div>
+
+    </div>
+  </div>
+);
+
 
 export default LandingPage;

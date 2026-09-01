@@ -17,100 +17,110 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/features" element={<FeaturesPage />} />
-        <Route path="/reviews" element={<ReviewsPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        
-        {/* Clerk Auth Routes */}
-       <Route 
-  path="/login/*" 
-  element={
-    <div className="flex items-center justify-center min-h-screen">
-      <SignIn
-        routing="path"
-        path="/login"
-        forceRedirectUrl="/dashboard"
-      />
-    </div>
-  } 
-/>
-      <Route 
-  path="/signup/*" 
-  element={
-    <div className="flex items-center justify-center min-h-screen">
-      <SignUp
-        routing="path"
-        path="/signup"
-        forceRedirectUrl="/dashboard"
-      />
-    </div>
-  } 
-/>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: "url('/aventra-bg2.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/features" element={<FeaturesPage />} />
+      <Route path="/reviews" element={<ReviewsPage />} />
+      <Route path="/about" element={<AboutPage />} />
 
-        {/* Protected Routes */}
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/customers" 
-          element={
-            <ProtectedRoute>
-              <CustomersPage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/customers/new" 
-          element={
-            <ProtectedRoute>
-              <AddCustomerPage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/customers/:id/edit" 
-          element={
-            <ProtectedRoute>
-              <EditCustomerPage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/customers/:id" 
-          element={
-            <ProtectedRoute>
-              <CustomerDetailsPage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/profile" 
-          element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/settings/*" 
-          element={
-            <ProtectedRoute>
-              <SettingsPage />
-            </ProtectedRoute>
-          } 
-        />
+      {/* Clerk Auth Routes */}
+      <Route
+        path="/login/*"
+        element={
+          <div className="flex items-center justify-center min-h-screen">
+            <SignIn
+              routing="path"
+              path="/login"
+              forceRedirectUrl="/dashboard"
+            />
+          </div>
+        }
+      />
+      <Route
+        path="/signup/*"
+        element={
+          <div className="flex items-center justify-center min-h-screen">
+            <SignUp
+              routing="path"
+              path="/signup"
+              forceRedirectUrl="/dashboard"
+            />
+          </div>
+        }
+      />
 
-        {/* 404 Route */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      {/* Protected Routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customers"
+        element={
+          <ProtectedRoute>
+            <CustomersPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customers/new"
+        element={
+          <ProtectedRoute>
+            <AddCustomerPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customers/:id/edit"
+        element={
+          <ProtectedRoute>
+            <EditCustomerPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customers/:id"
+        element={
+          <ProtectedRoute>
+            <CustomerDetailsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings/*"
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* 404 Route */}
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+    </div>
   );
 }
 
