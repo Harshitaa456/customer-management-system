@@ -38,8 +38,8 @@ const PricingPage = () => {
       <main className="flex-1 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-[#0F172A] mb-4">Pricing</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h1 className="text-4xl font-bold text-foreground mb-4">Pricing</h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Simple, transparent pricing for teams of all sizes
             </p>
           </div>
@@ -48,25 +48,25 @@ const PricingPage = () => {
             {plans.map((plan, index) => (
               <div key={index} className={`card p-8 relative ${plan.popular ? 'border-2 border-primary' : ''}`}>
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-2xl font-bold text-[#0F172A] mb-2">{plan.name}</h3>
-                <p className="text-gray-600 mb-4">{plan.description}</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
+                <p className="text-muted-foreground mb-4">{plan.description}</p>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-[#0F172A]">{plan.price}</span>
-                  <span className="text-gray-600">{plan.period}</span>
+                  <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                  <span className="text-muted-foreground">{plan.period}</span>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-600" />
-                      <span className="text-gray-700">{feature}</span>
+                      <Check className="w-5 h-5 text-success" />
+                      <span className="text-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-3 rounded-lg font-medium transition-colors ${plan.popular ? 'bg-primary text-white hover:bg-indigo-600' : 'bg-gray-100 text-[#0F172A] hover:bg-gray-200'}`}>
+                <button className={`w-full py-3 rounded-lg font-medium transition-colors ${plan.popular ? 'bg-primary text-primary-foreground hover:bg-primary-hover' : 'bg-accent text-accent-foreground hover:bg-accent/80'}`}>
                   Get Started
                 </button>
               </div>

@@ -38,24 +38,24 @@ const ProfilePage = () => {
       <div className="flex-1 min-w-0 flex flex-col">
 
         {/* Top Navbar */}
-        <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <header className="bg-card border-b border-border sticky top-0 z-40">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
 
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="md:hidden p-2 hover:bg-muted rounded-lg"
               >
                 <Menu className="w-6 h-6" />
               </button>
 
-              <h1 className="text-2xl font-bold text-[#0F172A]">
+              <h1 className="text-2xl font-bold text-foreground">
                 Profile
               </h1>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
                 {initials}
               </div>
             </div>
@@ -71,15 +71,15 @@ const ProfilePage = () => {
               {/* Profile Header */}
               <div className="flex flex-col items-center text-center mb-8">
 
-                <div className="w-24 h-24 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center text-white text-3xl sm:text-4xl font-bold mb-4">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-3xl sm:text-4xl font-bold mb-4">
                   {initials}
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] break-words">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground break-words">
                   {fullName}
                 </h2>
 
-                <p className="text-gray-600 mt-1 break-all">
+                <p className="text-muted-foreground mt-1 break-all">
                   {email}
                 </p>
 
@@ -92,43 +92,43 @@ const ProfilePage = () => {
               {/* Profile Details */}
               <div className="space-y-6">
 
-                <div className="flex items-start gap-3 sm:gap-4 p-4 bg-gray-50 rounded-lg">
-                  <User className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-3 sm:gap-4 p-4 bg-muted rounded-lg">
+                  <User className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground mt-1 flex-shrink-0" />
 
                   <div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-muted-foreground">
                       Full Name
                     </p>
 
-                    <p className="text-lg font-medium text-[#0F172A]">
+                    <p className="text-lg font-medium text-foreground">
                       {fullName}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 sm:gap-4 p-4 bg-gray-50 rounded-lg">
-                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-3 sm:gap-4 p-4 bg-muted rounded-lg">
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground mt-1 flex-shrink-0" />
 
                   <div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-muted-foreground">
                       Email Address
                     </p>
 
-                    <p className="text-base sm:text-lg font-medium text-[#0F172A] break-all">
+                    <p className="text-base sm:text-lg font-medium text-foreground break-all">
                       {email}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 sm:gap-4 p-4 bg-gray-50 rounded-lg">
-                  <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-3 sm:gap-4 p-4 bg-muted rounded-lg">
+                  <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground mt-1 flex-shrink-0" />
 
                   <div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-muted-foreground">
                       Role
                     </p>
 
-                    <p className="text-lg font-medium text-[#0F172A]">
+                    <p className="text-lg font-medium text-foreground">
                       User
                     </p>
                   </div>

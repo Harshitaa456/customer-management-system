@@ -92,40 +92,40 @@ const DashboardPage = () => {
 
       <div className="flex-1 min-w-0 flex flex-col">
         {/*searchbar/header*/}
-        <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <header className="bg-card border-b border-border sticky top-0 z-40">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="md:hidden p-2 hover:bg-muted rounded-lg"
               >
                 <Menu className="w-6 h-6" />
               </button>
               <div className="relative w-full sm:w-64">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search recent customers..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-border bg-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                 />
               </div>
             </div>
 
             {/*useravatar*/}
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="flex items-center gap-3 pl-4 border-l border-border">
+                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
                   {user?.firstName?.charAt(0) || "U"}
                 </div>
 
                 <div className="hidden sm:block">
-                  <p className="font-medium text-[#0F172A]">
+                  <p className="font-medium text-foreground">
                     {user?.fullName || "User"}
                   </p>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     {user?.primaryEmailAddress?.emailAddress}
                   </p>
                 </div>
@@ -137,8 +137,8 @@ const DashboardPage = () => {
         <main className="flex-1 p-4 sm:p-6">
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-[#0F172A]">Dashboard</h1>
-              <p className="text-gray-600">Welcome back! Here's what's happening with your customers.</p>
+              <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+              <p className="text-muted-foreground">Welcome back! Here's what's happening with your customers.</p>
             </div>
             <Link to="/customers/new" className="w-full sm:w-auto">
               <Button variant="primary" className="w-full sm:w-auto">
@@ -148,8 +148,8 @@ const DashboardPage = () => {
             </Link>
           </div>
 
-          {loading && <p className="text-gray-600 mb-6">Loading dashboard...</p>}
-          {error && <p className="text-red-600 mb-6">{error}</p>}
+          {loading && <p className="text-muted-foreground mb-6">Loading dashboard...</p>}
+          {error && <p className="text-destructive mb-6">{error}</p>}
 
           {!loading && !error && (
             <>
@@ -161,14 +161,14 @@ const DashboardPage = () => {
 
               <div className="card p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-lg font-semibold text-[#0F172A]">Recent Customers</h2>
+                  <h2 className="text-lg font-semibold text-foreground">Recent Customers</h2>
                   <Link to="/customers" className="text-primary hover:underline font-medium">
                     View All
                   </Link>
                 </div>
 
                 {filteredCustomers.length === 0 ? (
-                  <p className="text-gray-600 py-8 text-center">No customers found.</p>
+                  <p className="text-muted-foreground py-8 text-center">No customers found.</p>
                 ) : (
                   <CustomerTable
                     customers={filteredCustomers}

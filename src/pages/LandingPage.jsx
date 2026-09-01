@@ -24,7 +24,7 @@ import Button from "../components/Button";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-[#f7f7f4]"
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-background"
     style={{
       backgroundImage: "url('/aventra-bg.jpg')",
       backgroundSize: "cover",
@@ -37,19 +37,19 @@ const LandingPage = () => {
       <main className="flex-1">
         <section className="relative overflow-hidden">
           {/* Decorative background */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.12),_transparent_30%),radial-gradient(circle_at_left,_rgba(16,185,129,0.08),_transparent_28%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(58,69,46,0.12),_transparent_30%),radial-gradient(circle_at_left,_rgba(107,122,92,0.08),_transparent_28%)]" />
 
           <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 pt-20 pb-16 lg:pt-28 lg:pb-24">
             <div className="max-w-3xl mx-auto text-center">
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0F172A] leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1]">
                 Customer management,
                 <span className="block text-primary mt-2">
                   without the mess.
                 </span>
               </h1>
 
-              <p className="mt-7 text-lg sm:text-xl leading-relaxed text-gray-600 max-w-2xl mx-auto">
+              <p className="mt-7 text-lg sm:text-xl leading-relaxed text-muted-foreground max-w-2xl mx-auto">
                 Keep your customer information organised in one place. Add
                 customers, update their details, and easily keep track of their
                 current status.
@@ -80,25 +80,25 @@ const LandingPage = () => {
             {/* APP PREVIEW */}
             {/* APP PREVIEW */}
 <div className="mt-16 lg:mt-20 max-w-6xl mx-auto">
-  <div className="rounded-2xl border border-gray-200 bg-[#f8f9fc] shadow-2xl overflow-hidden">
+  <div className="rounded-2xl border border-border bg-surface shadow-2xl overflow-hidden">
 
     {/* Top Bar */}
-    <div className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-5 sm:px-7">
+    <div className="h-14 bg-card border-b border-border flex items-center justify-between px-5 sm:px-7">
 
-      <div className="flex items-center gap-3 border border-gray-200 rounded-lg px-3 py-2 w-48 sm:w-64">
-        <Search className="w-4 h-4 text-gray-400" />
-        <span className="text-xs sm:text-sm text-gray-400 truncate">
+      <div className="flex items-center gap-3 border border-border rounded-lg px-3 py-2 w-48 sm:w-64">
+        <Search className="w-4 h-4 text-muted-foreground" />
+        <span className="text-xs sm:text-sm text-muted-foreground truncate">
           Search customers...
         </span>
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-semibold">
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-semibold">
           H
         </div>
 
         <div className="hidden sm:block">
-          <p className="text-sm font-semibold text-[#0F172A]">
+          <p className="text-sm font-semibold text-foreground">
             Your Account
           </p>
         </div>
@@ -108,10 +108,10 @@ const LandingPage = () => {
     <div className="flex">
 
       {/* Sidebar */}
-      <aside className="hidden md:flex w-48 lg:w-56 bg-white border-r border-gray-200 min-h-[500px] flex-col">
+      <aside className="hidden md:flex w-48 lg:w-56 bg-sidebar border-r border-border min-h-[500px] flex-col">
 
         <div className="px-6 py-6">
-          <h3 className="text-xl font-bold text-[#0F172A]">
+          <h3 className="text-xl font-bold text-sidebar-foreground">
             Aventra
           </h3>
         </div>
@@ -140,8 +140,8 @@ const LandingPage = () => {
           />
         </nav>
 
-        <div className="mt-auto p-4 border-t border-gray-100">
-          <div className="flex items-center gap-3 text-red-500 text-sm font-medium">
+        <div className="mt-auto p-4 border-t border-border">
+          <div className="flex items-center gap-3 text-destructive text-sm font-medium">
             <LogOut className="w-4 h-4" />
             Logout
           </div>
@@ -155,16 +155,16 @@ const LandingPage = () => {
         <div className="flex items-start justify-between gap-4 mb-7">
 
           <div>
-            <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A]">
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground">
               Dashboard
             </h3>
 
-            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
               Here's what's happening with your customers.
             </p>
           </div>
 
-          <div className="hidden sm:flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-lg text-sm font-medium">
+          <div className="hidden sm:flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-lg text-sm font-medium">
             <Plus className="w-4 h-4" />
             Add Customer
           </div>
@@ -200,11 +200,11 @@ const LandingPage = () => {
         </div>
 
         {/* Recent Customers */}
-        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div className="bg-card border border-border rounded-xl overflow-hidden">
 
-          <div className="flex items-center justify-between px-5 py-5 border-b border-gray-100">
+          <div className="flex items-center justify-between px-5 py-5 border-b border-border">
 
-            <h4 className="font-semibold text-[#0F172A]">
+            <h4 className="font-semibold text-foreground">
               Recent Customers
             </h4>
 
@@ -214,7 +214,7 @@ const LandingPage = () => {
           </div>
 
           {/* Table Header */}
-          <div className="hidden sm:grid grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 px-5 py-3 text-xs font-medium text-gray-400 border-b border-gray-100">
+          <div className="hidden sm:grid grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 px-5 py-3 text-xs font-medium text-muted-foreground border-b border-border">
             <span>Customer</span>
             <span>Email</span>
             <span>Status</span>
@@ -260,7 +260,7 @@ const LandingPage = () => {
     </div>
   </div>
 
-  <p className="text-center text-sm text-gray-500 mt-5">
+  <p className="text-center text-sm text-muted-foreground mt-5">
     A simple place to keep your customer records organised.
   </p>
 </div>
@@ -281,7 +281,7 @@ const LandingPage = () => {
                 Keep it simple
               </p>
 
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
                 Everything you need to manage your customer records.
               </h2>
             </div>
@@ -314,16 +314,16 @@ const LandingPage = () => {
         {/* SIMPLE CTA */}
         <section className="py-20 lg:py-28">
           <div className="max-w-5xl mx-auto px-6 sm:px-8">
-            <div className="rounded-3xl bg-[#0F172A] px-7 py-14 sm:px-12 sm:py-16 text-center">
-              <p className="text-primary font-medium mb-4">
+            <div className="rounded-3xl bg-primary px-7 py-14 sm:px-12 sm:py-16 text-center">
+              <p className="text-accent font-medium mb-4">
                 Aventra
               </p>
 
-              <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground tracking-tight">
                 Keep your customer information in one place.
               </h2>
 
-              <p className="text-gray-300 mt-5 max-w-xl mx-auto text-lg leading-relaxed">
+              <p className="text-sidebar-foreground/80 mt-5 max-w-xl mx-auto text-lg leading-relaxed">
                 A straightforward way to add, organise, and manage your customer
                 records without unnecessary complexity.
               </p>
@@ -353,22 +353,22 @@ const LandingPage = () => {
 /* COMPONENTS */
 
 const FeatureCard = ({ icon: Icon, number, title, description }) => (
-  <div className="group rounded-2xl border border-gray-200 bg-[#fafaf8] p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+  <div className="group rounded-2xl border border-border bg-surface p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
     <div className="flex items-start justify-between mb-10">
       <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
         <Icon className="w-6 h-6 text-primary" />
       </div>
 
-      <span className="text-sm text-gray-400 font-medium">
+      <span className="text-sm text-muted-foreground font-medium">
         {number}
       </span>
     </div>
 
-    <h3 className="text-xl font-semibold text-[#0F172A] mb-3">
+    <h3 className="text-xl font-semibold text-foreground mb-3">
       {title}
     </h3>
 
-    <p className="text-gray-600 leading-relaxed">
+    <p className="text-muted-foreground leading-relaxed">
       {description}
     </p>
   </div>
@@ -376,12 +376,12 @@ const FeatureCard = ({ icon: Icon, number, title, description }) => (
 
 
 const PreviewCard = ({ label, value }) => (
-  <div className="rounded-xl border border-gray-100 p-5">
-    <p className="text-sm text-gray-500">
+  <div className="rounded-xl border border-border p-5">
+    <p className="text-sm text-muted-foreground">
       {label}
     </p>
 
-    <p className="text-3xl font-semibold text-[#0F172A] mt-2">
+    <p className="text-3xl font-semibold text-foreground mt-2">
       {value}
     </p>
   </div>
@@ -389,8 +389,8 @@ const PreviewCard = ({ label, value }) => (
 
 
 const PreviewRow = ({ name, status, statusStyle }) => (
-  <div className="grid grid-cols-3 items-center px-5 py-4 border-t border-gray-100 text-sm">
-    <span className="text-gray-700 font-medium">
+  <div className="grid grid-cols-3 items-center px-5 py-4 border-t border-border text-sm">
+    <span className="text-foreground font-medium">
       {name}
     </span>
 
@@ -402,7 +402,7 @@ const PreviewRow = ({ name, status, statusStyle }) => (
       </span>
     </span>
 
-    <span className="text-right text-gray-400">
+    <span className="text-right text-muted-foreground">
       Recently
     </span>
   </div>
@@ -411,8 +411,8 @@ const PreviewNavItem = ({ icon: Icon, label, active }) => (
   <div
     className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm ${
       active
-        ? "bg-primary text-white shadow-sm"
-        : "text-gray-500"
+        ? "bg-sidebar-active text-sidebar-foreground shadow-sm"
+        : "text-sidebar-foreground/80"
     }`}
   >
     <Icon className="w-4 h-4" />
@@ -429,21 +429,21 @@ const PreviewCustomer = ({
   const isActive = status === "Active";
 
   return (
-    <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 items-center px-5 py-4 border-b border-gray-100 last:border-b-0">
+    <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 items-center px-5 py-4 border-b border-border last:border-b-0">
 
       {/* Customer */}
       <div className="flex items-center gap-3 min-w-0">
 
-        <div className="w-9 h-9 shrink-0 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-semibold">
+        <div className="w-9 h-9 shrink-0 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-[10px] font-semibold">
           {initials}
         </div>
 
         <div className="min-w-0">
-          <p className="text-sm font-medium text-[#0F172A] truncate">
+          <p className="text-sm font-medium text-foreground truncate">
             {name}
           </p>
 
-          <p className="sm:hidden text-xs text-gray-400 truncate mt-0.5">
+          <p className="sm:hidden text-xs text-muted-foreground truncate mt-0.5">
             {email}
           </p>
         </div>
@@ -451,7 +451,7 @@ const PreviewCustomer = ({
       </div>
 
       {/* Email */}
-      <p className="hidden sm:block text-xs text-gray-500 truncate">
+      <p className="hidden sm:block text-xs text-muted-foreground truncate">
         {email}
       </p>
 
@@ -460,8 +460,8 @@ const PreviewCustomer = ({
         <span
           className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
             isActive
-              ? "bg-green-50 text-green-700"
-              : "bg-gray-100 text-gray-500"
+              ? "bg-success/15 text-success"
+              : "bg-muted text-muted-foreground"
           }`}
         >
           {status}
@@ -469,18 +469,18 @@ const PreviewCustomer = ({
       </div>
 
       {/* Company */}
-      <p className="hidden sm:block text-xs text-gray-500">
+      <p className="hidden sm:block text-xs text-muted-foreground">
         {company}
       </p>
 
       {/* Actions */}
-      <div className="flex items-center gap-3 text-gray-400">
+      <div className="flex items-center gap-3 text-muted-foreground">
 
         <Eye className="w-3.5 h-3.5" />
 
         <Pencil className="w-3.5 h-3.5" />
 
-        <Trash2 className="w-3.5 h-3.5 text-red-400" />
+        <Trash2 className="w-3.5 h-3.5 text-destructive" />
 
       </div>
 
@@ -488,16 +488,16 @@ const PreviewCustomer = ({
   );
 };
 const PreviewStat = ({ title, value, icon: Icon }) => (
-  <div className="bg-white border border-gray-200 rounded-xl p-4">
+  <div className="bg-surface border border-border rounded-xl p-4">
 
     <div className="flex items-center justify-between gap-2">
 
       <div>
-        <p className="text-[10px] sm:text-xs text-gray-500">
+        <p className="text-[10px] sm:text-xs text-muted-foreground">
           {title}
         </p>
 
-        <p className="text-xl sm:text-2xl font-semibold text-[#0F172A] mt-2">
+        <p className="text-xl sm:text-2xl font-semibold text-foreground mt-2">
           {value}
         </p>
       </div>

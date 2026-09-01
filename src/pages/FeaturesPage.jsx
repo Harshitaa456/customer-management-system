@@ -28,8 +28,8 @@ const FeaturesPage = () => {
       <main className="flex-1 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-[#0F172A] mb-4">Features</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h1 className="text-4xl font-bold text-foreground mb-4">Features</h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Everything you need to manage your customers effectively
             </p>
           </div>
@@ -40,8 +40,8 @@ const FeaturesPage = () => {
                 <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold text-[#0F172A] mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold text-foreground mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
               </div>
             ))}
           </div>

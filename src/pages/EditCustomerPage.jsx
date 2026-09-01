@@ -83,36 +83,36 @@ const EditCustomerPage = () => {
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 min-w-0 flex flex-col">
-        <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <header className="bg-card border-b border-border sticky top-0 z-40">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="md:hidden p-2 hover:bg-muted rounded-lg"
                 aria-label="Open menu"
               >
                 <Menu className="w-6 h-6" />
               </button>
 
-              <Link to="/customers" className="p-2 hover:bg-gray-100 rounded-lg">
+              <Link to="/customers" className="p-2 hover:bg-muted rounded-lg">
                 <ArrowLeft className="w-6 h-6" />
               </Link>
 
-              <h1 className="text-2xl font-bold text-[#0F172A]">
+              <h1 className="text-2xl font-bold text-foreground">
                 Edit Customer
               </h1>
             </div>
 
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
                 {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </div>
 
               <div className="hidden sm:block min-w-0">
-                <p className="font-medium text-[#0F172A] truncate">
+                <p className="font-medium text-foreground truncate">
                   {user?.fullName || 'User'}
                 </p>
-                <p className="text-sm text-gray-600 truncate">
+                <p className="text-sm text-muted-foreground truncate">
                   {user?.primaryEmailAddress?.emailAddress}
                 </p>
               </div>
@@ -124,14 +124,14 @@ const EditCustomerPage = () => {
           <div className="max-w-2xl mx-auto">
             <div className="card p-4 sm:p-6 md:p-8">
               {loading && (
-                <p className="text-gray-600 text-center py-8">
+                <p className="text-muted-foreground text-center py-8">
                   Loading customer...
                 </p>
               )}
 
               {!loading && (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {error && <p className="text-red-600 text-sm">{error}</p>}
+                  {error && <p className="text-destructive text-sm">{error}</p>}
 
                   <Input
                     label="Full Name"
@@ -177,7 +177,7 @@ const EditCustomerPage = () => {
                   />
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-medium text-[#0F172A]">
+                    <label className="text-sm font-medium text-foreground">
                       Customer Status
                     </label>
 
@@ -186,7 +186,7 @@ const EditCustomerPage = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, status: e.target.value })
                       }
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-2.5 border border-border bg-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
                     >
                       <option value="Active">Active</option>
                       <option value="Pending">Pending</option>

@@ -11,11 +11,11 @@ const NotFoundPage = () => {
           <h1 className="text-9xl font-bold text-primary">404</h1>
         </div>
         
-        <h2 className="text-3xl font-bold text-[#0F172A] mb-4">
+        <h2 className="text-3xl font-bold text-foreground mb-4">
           Page Not Found
         </h2>
         
-        <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">
+        <p className="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
           The page you're looking for doesn't exist or has been moved to another location.
         </p>
 

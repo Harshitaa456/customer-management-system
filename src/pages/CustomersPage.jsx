@@ -83,32 +83,32 @@ const CustomersPage = () => {
       />
 
       <div className="flex-1 min-w-0 flex flex-col">
-        <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <header className="bg-card border-b border-border sticky top-0 z-40">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="lg:hidden p-2 hover:bg-muted rounded-lg"
               >
                 <Menu className="w-6 h-6" />
               </button>
 
-              <h1 className="text-2xl font-bold text-[#0F172A]">
+              <h1 className="text-2xl font-bold text-foreground">
                 Customers
               </h1>
             </div>
 
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
                 {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </div>
 
               <div className="hidden sm:block min-w-0">
-                <p className="font-medium text-[#0F172A] truncate">
+                <p className="font-medium text-foreground truncate">
                   {user?.fullName || 'User'}
                 </p>
 
-                <p className="text-sm text-gray-600 truncate">
+                <p className="text-sm text-muted-foreground truncate">
                   {user?.primaryEmailAddress?.emailAddress}
                 </p>
               </div>
@@ -137,7 +137,7 @@ const CustomersPage = () => {
                     setFilterStatus(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full sm:w-auto px-4 py-2.5 border border-border bg-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                 >
                   <option value="all">All Status</option>
                   <option value="Active">Active</option>
@@ -161,13 +161,13 @@ const CustomersPage = () => {
             </div>
 
             {loading && (
-              <p className="text-gray-600 py-8 text-center">
+              <p className="text-muted-foreground py-8 text-center">
                 Loading customers...
               </p>
             )}
 
             {error && (
-              <p className="text-red-600 py-8 text-center">
+              <p className="text-destructive py-8 text-center">
                 {error}
               </p>
             )}
@@ -175,7 +175,7 @@ const CustomersPage = () => {
             {!loading &&
               !error &&
               displayedCustomers.length === 0 && (
-                <p className="text-gray-600 py-8 text-center">
+                <p className="text-muted-foreground py-8 text-center">
                   No customers found.
                 </p>
               )}

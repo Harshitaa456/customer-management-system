@@ -13,10 +13,10 @@ const Navbar = ({ isAuthenticated = false }) => {
   if (isAuthPage) return null;
 
   return (
-    <nav className="bg-indigo-950 border-b border-gray-100 sticky top-0 z-50">
+    <nav className="bg-sidebar border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" onClick={() => setIsOpen(false)}>
+          <Link to="/" onClick={() => setIsOpen(false)} className="text-sidebar-foreground">
             <Logo />
           </Link>
 
@@ -24,21 +24,21 @@ const Navbar = ({ isAuthenticated = false }) => {
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             <Link
               to="/features"
-              className="text-gray-600 hover:text-primary transition-colors"
+              className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
             >
               Features
             </Link>
 
             <Link
               to="/reviews"
-              className="text-gray-600 hover:text-primary transition-colors"
+              className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
             >
               Reviews
             </Link>
 
             <Link
               to="/about"
-              className="text-gray-600 hover:text-primary transition-colors"
+              className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
             >
               About
             </Link>
@@ -54,7 +54,7 @@ const Navbar = ({ isAuthenticated = false }) => {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
                 >
                   Sign in
                 </Link>
@@ -69,7 +69,7 @@ const Navbar = ({ isAuthenticated = false }) => {
           {/* Mobile + Tablet Menu Button */}
           <button
             type="button"
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-hover transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
@@ -84,12 +84,12 @@ const Navbar = ({ isAuthenticated = false }) => {
 
         {/* Mobile + Tablet Navigation */}
         {isOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-100">
+          <div className="lg:hidden py-4 border-t border-border">
             <div className="flex flex-col gap-3">
               <Link
                 to="/features"
                 onClick={() => setIsOpen(false)}
-                className="px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                className="px-3 py-2 text-sidebar-foreground hover:text-accent-foreground hover:bg-sidebar-hover rounded-lg transition-colors"
               >
                 Features
               </Link>
@@ -97,7 +97,7 @@ const Navbar = ({ isAuthenticated = false }) => {
               <Link
                 to="/reviews"
                 onClick={() => setIsOpen(false)}
-                className="px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                className="px-3 py-2 text-sidebar-foreground hover:text-accent-foreground hover:bg-sidebar-hover rounded-lg transition-colors"
               >
                 Reviews
               </Link>
@@ -105,12 +105,12 @@ const Navbar = ({ isAuthenticated = false }) => {
               <Link
                 to="/about"
                 onClick={() => setIsOpen(false)}
-                className="px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                className="px-3 py-2 text-sidebar-foreground hover:text-accent-foreground hover:bg-sidebar-hover rounded-lg transition-colors"
               >
                 About
               </Link>
 
-              <div className="flex flex-col gap-3 pt-4 mt-1 border-t border-gray-100">
+              <div className="flex flex-col gap-3 pt-4 mt-1 border-t border-border">
                 {isAuthenticated ? (
                   <Link
                     to="/dashboard"
@@ -129,7 +129,7 @@ const Navbar = ({ isAuthenticated = false }) => {
                     <Link
                       to="/login"
                       onClick={() => setIsOpen(false)}
-                      className="w-full text-center px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                      className="w-full text-center px-3 py-2 text-sidebar-foreground hover:text-accent hover:bg-sidebar-hover rounded-lg transition-colors"
                     >
                       Sign in
                     </Link>
