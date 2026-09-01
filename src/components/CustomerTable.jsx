@@ -31,7 +31,7 @@ const CustomerTable = ({ customers, onEdit, onDelete, onView }) => {
           {customers.map((customer) => (
             <tr
               key={customer.id}
-              className="border-b border-border hover:bg-muted"
+              className="border-b border-border transition-all duration-200 ease-smooth hover:bg-muted/80 hover:shadow-soft"
             >
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
@@ -78,7 +78,7 @@ const CustomerTable = ({ customers, onEdit, onDelete, onView }) => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onView(customer.id)}
-                    className="rounded-lg p-2 transition-colors hover:bg-muted"
+                    className="icon-btn hover:bg-muted"
                     title="View"
                     aria-label={`View ${customer.name}`}
                   >
@@ -87,7 +87,7 @@ const CustomerTable = ({ customers, onEdit, onDelete, onView }) => {
 
                   <button
                     onClick={() => onEdit(customer.id)}
-                    className="rounded-lg p-2 transition-colors hover:bg-muted"
+                    className="icon-btn hover:bg-muted"
                     title="Edit"
                     aria-label={`Edit ${customer.name}`}
                   >
@@ -96,7 +96,7 @@ const CustomerTable = ({ customers, onEdit, onDelete, onView }) => {
 
                   <button
                     onClick={() => onDelete(customer.id)}
-                    className="rounded-lg p-2 text-destructive transition-colors hover:bg-destructive/10"
+                    className="icon-btn text-destructive hover:bg-destructive/10"
                     title="Delete"
                     aria-label={`Delete ${customer.name}`}
                   >

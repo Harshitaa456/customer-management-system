@@ -42,7 +42,7 @@ const LoginPage = () => {
             <Logo />
           </div>
           
-          <div className="card p-8">
+          <div className="card shadow-elevated p-8">
             <h2 className="text-2xl font-bold text-foreground mb-2">Sign In</h2>
             <p className="text-muted-foreground mb-8">Enter your credentials to access your account</p>
 
@@ -105,7 +105,7 @@ const LoginPage = () => {
               <div className="space-y-3">
                 <button
                   type="button"
-                  className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-border rounded-lg hover:bg-muted transition-colors"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-border rounded-lg shadow-soft hover:bg-muted hover:shadow-card hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 ease-smooth"
                 >
                   <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -117,7 +117,7 @@ const LoginPage = () => {
                 </button>
                 <button
                   type="button"
-                  className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-border rounded-lg hover:bg-muted transition-colors"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-border rounded-lg shadow-soft hover:bg-muted hover:shadow-card hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 ease-smooth"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/>

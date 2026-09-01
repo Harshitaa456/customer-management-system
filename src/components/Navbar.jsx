@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@clerk/clerk-react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
 import Button from './Button';
+import AuthEntryLink from './AuthEntryLink';
 
-const Navbar = ({ isAuthenticated = false }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { isLoaded, isSignedIn } = useAuth();
+  const isAuthenticated = isLoaded && isSignedIn;
   const isAuthPage =
     location.pathname === '/login' || location.pathname === '/signup';
 
   if (isAuthPage) return null;
 
   return (
-    <nav className="bg-sidebar border-b border-border sticky top-0 z-50">
+    <nav className="bg-sidebar border-b border-border sticky top-0 z-50 shadow-header">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" onClick={() => setIsOpen(false)} className="text-sidebar-foreground">
+          <Link to="/" onClick={() => setIsOpen(false)} className="text-sidebar-foreground transition-opacity duration-200 hover:opacity-90">
             <Logo />
           </Link>
 
@@ -24,21 +28,21 @@ const Navbar = ({ isAuthenticated = false }) => {
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             <Link
               to="/features"
-              className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
+              className="text-sidebar-foreground hover:text-accent transition-all duration-200 hover:scale-105"
             >
               Features
             </Link>
 
             <Link
               to="/reviews"
-              className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
+              className="text-sidebar-foreground hover:text-accent transition-all duration-200 hover:scale-105"
             >
               Reviews
             </Link>
 
             <Link
               to="/about"
-              className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
+              className="text-sidebar-foreground hover:text-accent transition-all duration-200 hover:scale-105"
             >
               About
             </Link>
@@ -52,16 +56,16 @@ const Navbar = ({ isAuthenticated = false }) => {
               </Link>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  className="text-sidebar-foreground hover:text-accent-foreground transition-colors"
+                <AuthEntryLink
+                  mode="login"
+                  className="text-sidebar-foreground hover:text-accent transition-all duration-200 hover:scale-105"
                 >
                   Sign in
-                </Link>
+                </AuthEntryLink>
 
-                <Link to="/signup">
+                <AuthEntryLink mode="signup">
                   <Button variant="primary">Get Started</Button>
-                </Link>
+                </AuthEntryLink>
               </>
             )}
           </div>
@@ -69,7 +73,7 @@ const Navbar = ({ isAuthenticated = false }) => {
           {/* Mobile + Tablet Menu Button */}
           <button
             type="button"
-            className="lg:hidden p-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-hover transition-colors"
+            className="lg:hidden p-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-hover transition-all duration-200 ease-smooth hover:shadow-soft"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
@@ -126,16 +130,16 @@ const Navbar = ({ isAuthenticated = false }) => {
                   </Link>
                 ) : (
                   <>
-                    <Link
-                      to="/login"
+                    <AuthEntryLink
+                      mode="login"
                       onClick={() => setIsOpen(false)}
                       className="w-full text-center px-3 py-2 text-sidebar-foreground hover:text-accent hover:bg-sidebar-hover rounded-lg transition-colors"
                     >
                       Sign in
-                    </Link>
+                    </AuthEntryLink>
 
-                    <Link
-                      to="/signup"
+                    <AuthEntryLink
+                      mode="signup"
                       onClick={() => setIsOpen(false)}
                       className="w-full"
                     >
@@ -145,7 +149,7 @@ const Navbar = ({ isAuthenticated = false }) => {
                       >
                         Get Started
                       </Button>
-                    </Link>
+                    </AuthEntryLink>
                   </>
                 )}
               </div>

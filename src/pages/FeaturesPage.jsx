@@ -36,8 +36,8 @@ const FeaturesPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="card p-6 hover:shadow-lg transition-shadow">
-                <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <div key={index} className="card-interactive p-6 group">
+                <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-primary/15 group-hover:scale-110 group-hover:shadow-soft">
                   <feature.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">{feature.title}</h3>

@@ -31,13 +31,15 @@ const Sidebar = ({ isOpen, onClose }) => {
       )}
 
       {/* Sidebar */}
-      <aside className={`
-        fixed left-0 top-0 h-full bg-sidebar border-r border-border z-50 
+      <aside
+        className={`
+        fixed left-0 top-0 z-50 flex w-64 flex-col
+        h-screen min-h-screen bg-sidebar border-r border-border shadow-elevated
         transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:translate-x-0 md:static
-        w-64
-      `}>
+        md:translate-x-0
+      `}
+      >
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="p-6 border-b border-border">
@@ -56,10 +58,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                       to={item.path}
                       onClick={onClose}
                       className={`
-                        flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                        flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-smooth
                         ${isActive
-                          ? 'bg-sidebar-active text-sidebar-foreground'
-                          : 'text-sidebar-foreground hover:bg-sidebar-hover'
+                          ? 'bg-sidebar-active text-sidebar-foreground shadow-sm'
+                          : 'text-sidebar-foreground hover:bg-sidebar-hover hover:translate-x-0.5'
                         }
                       `}
                     >
@@ -76,7 +78,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <div className="p-4 border-t border-border">
             <button
               onClick={() => signOut({ redirectUrl: '/login' })}
-              className="flex items-center gap-3 px-4 py-3 w-full text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+              className="flex items-center gap-3 px-4 py-3 w-full text-destructive hover:bg-destructive/10 rounded-lg transition-all duration-200 ease-smooth hover:translate-x-0.5"
             >
               <LogOut className="w-5 h-5" />
               <span className="font-medium">Logout</span>

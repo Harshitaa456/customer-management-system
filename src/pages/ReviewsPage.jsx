@@ -62,7 +62,7 @@ const ReviewsPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {reviews.map((review, index) => (
-              <div key={index} className="card p-8">
+              <div key={index} className="card-interactive p-8 group">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(review.rating)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
@@ -70,7 +70,7 @@ const ReviewsPage = () => {
                 </div>
                 <p className="text-foreground mb-6 leading-relaxed">"{review.text}"</p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
+                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold shadow-button transition-all duration-300 group-hover:shadow-button-hover group-hover:scale-105">
                     {review.avatar}
                   </div>
                   <div>

@@ -29,7 +29,7 @@ const AboutPage = () => {
           </div>
 
           {/* Our Mission */}
-          <div className="card p-8 mb-8">
+          <div className="card-interactive p-8 mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">
               Our Mission
             </h2>
@@ -44,7 +44,7 @@ const AboutPage = () => {
           </div>
 
           {/* Our Values */}
-          <div className="card p-8">
+          <div className="card-interactive p-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">
               Our Values
             </h2>

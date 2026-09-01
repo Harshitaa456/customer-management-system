@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AuthEntryLink from '../components/AuthEntryLink';
 import { Check } from 'lucide-react';
 
 const PricingPage = () => {
@@ -46,9 +47,9 @@ const PricingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {plans.map((plan, index) => (
-              <div key={index} className={`card p-8 relative ${plan.popular ? 'border-2 border-primary' : ''}`}>
+              <div key={index} className={`card-interactive p-8 relative group ${plan.popular ? 'border-2 border-primary shadow-elevated scale-[1.02]' : ''}`}>
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium shadow-button">
                     Most Popular
                   </div>
                 )}
@@ -66,9 +67,11 @@ const PricingPage = () => {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-3 rounded-lg font-medium transition-colors ${plan.popular ? 'bg-primary text-primary-foreground hover:bg-primary-hover' : 'bg-accent text-accent-foreground hover:bg-accent/80'}`}>
-                  Get Started
-                </button>
+                <AuthEntryLink mode="signup" className="block w-full">
+                  <button type="button" className={`w-full py-3 rounded-lg font-medium transition-all duration-200 ease-smooth hover:-translate-y-0.5 active:translate-y-0 ${plan.popular ? 'bg-primary text-primary-foreground hover:bg-primary-hover shadow-button hover:shadow-button-hover' : 'bg-accent text-accent-foreground hover:bg-accent/80 shadow-soft hover:shadow-card'}`}>
+                    Get Started
+                  </button>
+                </AuthEntryLink>
               </div>
             ))}
           </div>

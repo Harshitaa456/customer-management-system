@@ -14,6 +14,7 @@ import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import GuestRoute from './components/GuestRoute';
 
 function App() {
   return (
@@ -37,25 +38,31 @@ function App() {
       <Route
         path="/login/*"
         element={
-          <div className="flex items-center justify-center min-h-screen">
-            <SignIn
-              routing="path"
-              path="/login"
-              forceRedirectUrl="/dashboard"
-            />
-          </div>
+          <GuestRoute>
+            <div className="flex items-center justify-center min-h-screen">
+              <SignIn
+                routing="path"
+                path="/login"
+                forceRedirectUrl="/dashboard"
+                signUpUrl="/signup"
+              />
+            </div>
+          </GuestRoute>
         }
       />
       <Route
         path="/signup/*"
         element={
-          <div className="flex items-center justify-center min-h-screen">
-            <SignUp
-              routing="path"
-              path="/signup"
-              forceRedirectUrl="/dashboard"
-            />
-          </div>
+          <GuestRoute>
+            <div className="flex items-center justify-center min-h-screen">
+              <SignUp
+                routing="path"
+                path="/signup"
+                forceRedirectUrl="/dashboard"
+                signInUrl="/login"
+              />
+            </div>
+          </GuestRoute>
         }
       />
 

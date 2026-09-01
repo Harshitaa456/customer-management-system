@@ -5,6 +5,7 @@ import {
   Menu, ArrowLeft, Edit, Trash2, Mail, Phone, Building, Calendar,
 } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
+import AppHeader from '../components/AppHeader';
 import Button from '../components/Button';
 import { getCustomer, deleteCustomer } from '../api/customers';
 
@@ -56,43 +57,41 @@ const CustomerDetailsPage = () => {
     <div className="min-h-screen bg-background flex min-w-0">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 min-w-0 flex flex-col">
-        <header className="bg-card border-b border-border sticky top-0 z-40">
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+      <div className="flex-1 min-w-0 flex flex-col md:ml-64">
+        <AppHeader>
             <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden p-2 hover:bg-muted rounded-lg"
+                className="md:hidden p-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-hover transition-all duration-200 ease-smooth hover:shadow-soft"
                 aria-label="Open menu"
               >
                 <Menu className="w-6 h-6" />
               </button>
 
-              <Link to="/customers" className="p-2 hover:bg-muted rounded-lg">
+              <Link to="/customers" className="p-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-hover transition-all duration-200 ease-smooth hover:shadow-soft">
                 <ArrowLeft className="w-6 h-6" />
               </Link>
 
-              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+              <h1 className="text-xl sm:text-2xl font-bold text-sidebar-foreground">
                 Customer Details
               </h1>
             </div>
 
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
+              <div className="w-10 h-10 bg-sidebar-active rounded-full flex items-center justify-center text-sidebar-foreground font-semibold">
                 {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </div>
 
               <div className="hidden sm:block min-w-0">
-                <p className="font-medium text-foreground truncate">
+                <p className="font-medium text-sidebar-foreground truncate">
                   {user?.fullName || 'User'}
                 </p>
-                <p className="text-sm text-muted-foreground truncate">
+                <p className="text-sm text-sidebar-foreground/80 truncate">
                   {user?.primaryEmailAddress?.emailAddress}
                 </p>
               </div>
             </div>
-          </div>
-        </header>
+        </AppHeader>
 
         <main className="flex-1 p-4 sm:p-6">
           <div className="max-w-4xl mx-auto">

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   ArrowRight,
   UserPlus,
@@ -21,6 +20,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
+import AuthEntryLink from "../components/AuthEntryLink";
 
 const LandingPage = () => {
   return (
@@ -56,7 +56,7 @@ const LandingPage = () => {
               </p>
 
               <div className="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/signup">
+                <AuthEntryLink mode="signup">
                   <Button
                     variant="primary"
                     className="w-full flex sm:w-auto px-7 py-3.5 text-base"
@@ -64,23 +64,23 @@ const LandingPage = () => {
                     Get Started
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
-                </Link>
+                </AuthEntryLink>
 
-                <Link to="/login" className="w-full sm:w-auto">
+                <AuthEntryLink mode="login" className="w-full sm:w-auto">
                   <Button
                     variant="secondary"
                     className="w-full sm:w-auto px-7 py-3.5 text-base"
                   >
                     Sign In
                   </Button>
-                </Link>
+                </AuthEntryLink>
               </div>
             </div>
 
             {/* APP PREVIEW */}
             {/* APP PREVIEW */}
 <div className="mt-16 lg:mt-20 max-w-6xl mx-auto">
-  <div className="rounded-2xl border border-border bg-surface shadow-2xl overflow-hidden">
+  <div className="rounded-2xl border border-border bg-surface shadow-elevated overflow-hidden transition-shadow duration-300 hover:shadow-card-hover">
 
     {/* Top Bar */}
     <div className="h-14 bg-card border-b border-border flex items-center justify-between px-5 sm:px-7">
@@ -200,7 +200,7 @@ const LandingPage = () => {
         </div>
 
         {/* Recent Customers */}
-        <div className="bg-card border border-border rounded-xl overflow-hidden">
+        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-soft">
 
           <div className="flex items-center justify-between px-5 py-5 border-b border-border">
 
@@ -314,7 +314,7 @@ const LandingPage = () => {
         {/* SIMPLE CTA */}
         <section className="py-20 lg:py-28">
           <div className="max-w-5xl mx-auto px-6 sm:px-8">
-            <div className="rounded-3xl bg-primary px-7 py-14 sm:px-12 sm:py-16 text-center">
+            <div className="rounded-3xl bg-primary px-7 py-14 sm:px-12 sm:py-16 text-center shadow-elevated transition-all duration-300 hover:shadow-card-hover">
               <p className="text-accent font-medium mb-4">
                 Aventra
               </p>
@@ -329,7 +329,7 @@ const LandingPage = () => {
               </p>
 
               <div className="mt-8">
-                <Link to="/signup">
+                <AuthEntryLink mode="signup">
                   <Button
                     variant="secondary"
                     className="px-7 py-3.5 flex text-base"
@@ -337,7 +337,7 @@ const LandingPage = () => {
                     Get Started
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
-                </Link>
+                </AuthEntryLink>
               </div>
             </div>
           </div>
@@ -353,9 +353,9 @@ const LandingPage = () => {
 /* COMPONENTS */
 
 const FeatureCard = ({ icon: Icon, number, title, description }) => (
-  <div className="group rounded-2xl border border-border bg-surface p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+  <div className="group rounded-2xl border border-border bg-surface p-7 sm:p-8 shadow-soft transition-all duration-300 ease-smooth hover:-translate-y-1.5 hover:shadow-card-hover">
     <div className="flex items-start justify-between mb-10">
-      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center transition-all duration-300 group-hover:bg-primary/15 group-hover:scale-110 group-hover:shadow-soft">
         <Icon className="w-6 h-6 text-primary" />
       </div>
 
@@ -429,7 +429,7 @@ const PreviewCustomer = ({
   const isActive = status === "Active";
 
   return (
-    <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 items-center px-5 py-4 border-b border-border last:border-b-0">
+    <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1.4fr_1.5fr_1fr_1fr_auto] gap-4 items-center px-5 py-4 border-b border-border last:border-b-0 transition-colors duration-200 hover:bg-muted/50">
 
       {/* Customer */}
       <div className="flex items-center gap-3 min-w-0">
@@ -488,7 +488,7 @@ const PreviewCustomer = ({
   );
 };
 const PreviewStat = ({ title, value, icon: Icon }) => (
-  <div className="bg-surface border border-border rounded-xl p-4">
+  <div className="bg-surface border border-border rounded-xl p-4 shadow-soft transition-all duration-300 hover:shadow-card hover:-translate-y-0.5">
 
     <div className="flex items-center justify-between gap-2">
 
@@ -502,7 +502,7 @@ const PreviewStat = ({ title, value, icon: Icon }) => (
         </p>
       </div>
 
-      <div className="hidden sm:flex w-9 h-9 rounded-lg bg-primary/10 items-center justify-center">
+      <div className="hidden sm:flex w-9 h-9 rounded-lg bg-primary/10 items-center justify-center transition-all duration-300 hover:bg-primary/15 hover:scale-105">
         <Icon className="w-5 h-5 text-primary" />
       </div>
 

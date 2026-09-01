@@ -3,6 +3,7 @@ import { useUser } from '@clerk/clerk-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Search, Plus } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
+import AppHeader from '../components/AppHeader';
 import DashboardCard from '../components/DashboardCard';
 import CustomerTable from '../components/CustomerTable';
 import Button from '../components/Button';
@@ -90,49 +91,47 @@ const DashboardPage = () => {
     >
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 min-w-0 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col md:ml-64">
         {/*searchbar/header*/}
-        <header className="bg-card border-b border-border sticky top-0 z-40">
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+        <AppHeader>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden p-2 hover:bg-muted rounded-lg"
+                className="md:hidden p-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-hover transition-all duration-200 ease-smooth hover:shadow-soft"
               >
                 <Menu className="w-6 h-6" />
               </button>
               <div className="relative w-full sm:w-64">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-sidebar-foreground/60" />
                 <input
                   type="text"
                   placeholder="Search recent customers..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-border bg-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-sidebar-foreground/20 bg-sidebar-active text-sidebar-foreground placeholder:text-sidebar-foreground/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                 />
               </div>
             </div>
 
             {/*useravatar*/}
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3 pl-4 border-l border-border">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
+              <div className="flex items-center gap-3 pl-4 border-l border-sidebar-foreground/20">
+                <div className="w-10 h-10 bg-sidebar-active rounded-full flex items-center justify-center text-sidebar-foreground font-semibold">
                   {user?.firstName?.charAt(0) || "U"}
                 </div>
 
                 <div className="hidden sm:block">
-                  <p className="font-medium text-foreground">
+                  <p className="font-medium text-sidebar-foreground">
                     {user?.fullName || "User"}
                   </p>
 
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-sidebar-foreground/80">
                     {user?.primaryEmailAddress?.emailAddress}
                   </p>
                 </div>
               </div>
             </div>
-          </div>
-        </header>
+        </AppHeader>
 
         <main className="flex-1 p-4 sm:p-6">
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -162,7 +161,7 @@ const DashboardPage = () => {
               <div className="card p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-semibold text-foreground">Recent Customers</h2>
-                  <Link to="/customers" className="text-primary hover:underline font-medium">
+                  <Link to="/customers" className="text-primary hover:text-primary-hover font-medium transition-all duration-200 hover:underline underline-offset-4">
                     View All
                   </Link>
                 </div>

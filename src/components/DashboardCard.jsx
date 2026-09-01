@@ -2,7 +2,7 @@ import React from 'react';
 
 const DashboardCard = ({ title, value, icon: Icon, trend, trendUp = true }) => {
   return (
-     <div className="card bg-surface p-6 hover:bg-muted">
+    <div className="card-interactive bg-surface p-6 group cursor-default">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-muted-foreground text-sm font-medium">{title}</p>
@@ -13,7 +13,7 @@ const DashboardCard = ({ title, value, icon: Icon, trend, trendUp = true }) => {
             </p>
           )}
         </div>
-        <div className="bg-primary/10 p-3 rounded-lg">
+        <div className="bg-primary/10 p-3 rounded-lg transition-all duration-300 group-hover:bg-primary/15 group-hover:scale-110 group-hover:shadow-soft">
           <Icon className="w-6 h-6 text-primary" />
         </div>
       </div>

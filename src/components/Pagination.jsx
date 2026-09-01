@@ -11,14 +11,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-2 border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="p-2 border border-border rounded-lg shadow-soft hover:bg-muted hover:shadow-card hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-soft transition-all duration-200 ease-smooth"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="p-2 border border-border rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="p-2 border border-border rounded-lg shadow-soft hover:bg-muted hover:shadow-card hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-soft transition-all duration-200 ease-smooth"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
