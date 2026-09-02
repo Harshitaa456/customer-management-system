@@ -77,7 +77,14 @@ const CustomersPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex min-w-0">
+    <div className="min-h-screen bg-background flex min-w-0"
+    style={{ 
+      backgroundImage: "url('/aventra-bg-main.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+    }}
+    >
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

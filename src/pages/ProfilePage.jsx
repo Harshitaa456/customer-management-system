@@ -10,7 +10,14 @@ const ProfilePage = () => {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: "url('/aventra-bg-main.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+      >
         Loading...
       </div>
     );
@@ -33,7 +40,15 @@ const ProfilePage = () => {
     fullName.charAt(0).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-background flex min-w-0">
+    <div
+      className="min-h-screen flex min-w-0"
+      style={{
+        backgroundImage: "url('/aventra-bg-main.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 min-w-0 flex flex-col md:ml-64">

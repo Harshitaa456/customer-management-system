@@ -83,7 +83,7 @@ const DashboardPage = () => {
     <div
       className="min-h-screen flex min-w-0"
       style={{
-        backgroundImage: "url('/aventra-bg2.jpg')",
+        backgroundImage: "url('/aventra-bg-main.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",

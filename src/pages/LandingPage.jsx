@@ -26,7 +26,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden bg-background"
     style={{
-      backgroundImage: "url('/aventra-bg.jpg')",
+      backgroundImage: "url('/aventra-bg-main.jpg')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",
