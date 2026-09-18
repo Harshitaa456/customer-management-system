@@ -62,7 +62,7 @@ PostgreSQL Database
 * Backend: Render
 * Database: Vercel
 
-## 🚀 Future Scope
+## 🌱 Future Development
 
 * **Customer Filtering** — Filter customers based on status and other relevant attributes.
 * **Organization & Branch Management** — Add organizations/companies and associate customers with specific branches.
