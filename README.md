@@ -16,7 +16,7 @@ A full-stack web application designed to simplify customer data management. It a
 * 📱 Responsive user interface
 * ✅ Form validation
 
-## 🏗️ Architecture
+## 🏛️ Architecture
 
 text
 React.js Frontend
@@ -62,7 +62,7 @@ PostgreSQL Database
 * Backend: Render
 * Database: Vercel
 
-## 🔮 Future Scope
+## 🚀 Future Scope
 
 * **Customer Filtering** — Filter customers based on status and other relevant attributes.
 * **Organization & Branch Management** — Add organizations/companies and associate customers with specific branches.
